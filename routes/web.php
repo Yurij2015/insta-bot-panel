@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\InstProfileController;
+use App\Http\Controllers\Api\InstProfileFollowersController;
+use App\Http\Controllers\Api\InstProfileInfoController;
+use App\Http\Controllers\Api\InstSearchController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +21,13 @@ Route::get('/', static function () {
     return view('welcome');
 });
 
-Route::get('/inst-profile', [InstProfileController::class, 'index'])->name('inst-profile');
+Route::middleware('auth')->group(function () {
+    Route::resource('profiles', ProfileController::class);
+    Route::get('/inst-profile-followers', [InstProfileFollowersController::class, 'index'])->name('inst-profile-followers');
+    Route::get('/inst-search', [InstSearchController::class, 'search'])->name('inst-search');
+    Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
