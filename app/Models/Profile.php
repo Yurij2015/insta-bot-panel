@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -46,5 +47,10 @@ class Profile extends Model
     public function proxy(): BelongsTo
     {
         return $this->belongsTo(Proxy::class);
+    }
+
+    public function profileData(): HasOne
+    {
+        return $this->hasOne(PersonalProfileData::class, 'username', 'username');
     }
 }

@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inst-profile-followers', [InstProfileFollowersController::class, 'index'])->name('inst-profile-followers');
     Route::get('/inst-search', [InstSearchController::class, 'search'])->name('inst-search');
     Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
+    Route::get('/personal-profile-info/{profile}', [ProfileController::class, 'personalProfileInfo'])->name('personal-profile-info');
 });
 
 Auth::routes();

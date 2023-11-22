@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetCurlRequests\WebProfileInfo;
 use App\Http\Requests\ProfileSaveRequest;
 use App\Http\Requests\ProxySaveRequest;
+use App\Models\PersonalProfileData;
 use App\Models\Profile;
 use App\Models\Proxy;
+use File;
 use Illuminate\Http\Request;
+use JsonException;
+use Log;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProfileController extends Controller
 {
@@ -68,8 +75,28 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        return view('profile.show', compact('profile'));
     }
+
+    /**
+     * @throws JsonException
+     */
+    public function personalProfileInfo(Profile $profile, WebProfileInfo $webProfileInfo)
+    {
+        $personalProfileData = Profile::with('profileData')->find($profile->id);
+
+        $fileExist = File::exists(public_path("uploads/profiles/images/$personalProfileData->username" . ".jpg"));
+
+        if (!$fileExist) {
+            $this->downloadAndSaveImage($personalProfileData->profileData->profile_pic_url, $personalProfileData->username . '.jpg');
+        }
+
+        if (!$personalProfileData->profileData) {
+            $webProfileInfo->getWebProfileInfo($profile);
+        }
+        return view('profile.personal-profile-info', compact('personalProfileData'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -93,5 +120,15 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         //
+    }
+
+    private function downloadAndSaveImage($imageUrl, $imageName): void
+    {
+        try {
+            $imageContent = file_get_contents($imageUrl);
+            Storage::disk('public')->put('profiles/images' . '/' . $imageName, $imageContent);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 }
