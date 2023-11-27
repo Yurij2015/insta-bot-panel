@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GetCurlRequests\WebProfileInfo;
 use App\Http\Requests\ProfileSaveRequest;
 use App\Http\Requests\ProxySaveRequest;
-use App\Models\PersonalProfileData;
 use App\Models\Profile;
 use App\Models\Proxy;
 use File;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use JsonException;
 use Log;
@@ -37,7 +37,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Profile $profile, ProfileSaveRequest $profileSaveRequest, ProxySaveRequest $proxySaveRequest)
+    public function store(Profile $profile, ProfileSaveRequest $profileSaveRequest, ProxySaveRequest $proxySaveRequest): RedirectResponse
     {
         $proxy = Proxy::updateOrCreate(
             [

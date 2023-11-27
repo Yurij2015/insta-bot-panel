@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\InstProfileFollowersController;
 use App\Http\Controllers\Api\InstProfileInfoController;
 use App\Http\Controllers\Api\InstSearchController;
+use App\Http\Controllers\Api\InstSearchResultController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,8 @@ Route::get('/', static function () {
 Route::middleware('auth')->group(function () {
     Route::resource('profiles', ProfileController::class);
     Route::get('/inst-profile-followers', [InstProfileFollowersController::class, 'index'])->name('inst-profile-followers');
-    Route::get('/inst-search', [InstSearchController::class, 'search'])->name('inst-search');
+    Route::get('/inst-search', [InstSearchController::class, 'index'])->name('inst-search');
+    Route::get('/inst-search-result', [InstSearchResultController::class, 'index'])->name('inst-search-result');
     Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
     Route::get('/personal-profile-info/{profile}', [ProfileController::class, 'personalProfileInfo'])->name('personal-profile-info');
 });

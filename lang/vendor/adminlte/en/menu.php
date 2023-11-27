@@ -16,4 +16,8 @@ return [
     'important'                     => 'Important',
     'warning'                       => 'Warning',
     'information'                   => 'Information',
+    'profiles'                      => 'Profiles',
+    'menu'                          => 'MAIN MENU',
+    'search'                        => 'SEARCH',
+    'search_result'                 => 'SEARCH RESULT',
 ];
