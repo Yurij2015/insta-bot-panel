@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/inst-search-result', [InstSearchResultController::class, 'index'])->name('inst-search-result');
     Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
     Route::get('/personal-profile-info/{profile}', [ProfileController::class, 'personalProfileInfo'])->name('personal-profile-info');
+    Route::post('/handle-search', [InstSearchController::class, 'handleSearch'])->name('handle-search');
+
 });
 
 Auth::routes();

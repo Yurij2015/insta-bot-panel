@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -19,22 +20,34 @@ use Illuminate\Support\Carbon;
  * @property string|null $rank_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult query()
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereHashtags($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereInformModule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereKeyWord($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult wherePlaces($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereRankToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereSeeMore($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SearchResult whereUsers($value)
- * @mixin \Eloquent
+ * @method static Builder|SearchResult newModelQuery()
+ * @method static Builder|SearchResult newQuery()
+ * @method static Builder|SearchResult query()
+ * @method static Builder|SearchResult whereCreatedAt($value)
+ * @method static Builder|SearchResult whereHashtags($value)
+ * @method static Builder|SearchResult whereId($value)
+ * @method static Builder|SearchResult whereInformModule($value)
+ * @method static Builder|SearchResult whereKeyWord($value)
+ * @method static Builder|SearchResult wherePlaces($value)
+ * @method static Builder|SearchResult whereRankToken($value)
+ * @method static Builder|SearchResult whereSeeMore($value)
+ * @method static Builder|SearchResult whereUpdatedAt($value)
+ * @method static Builder|SearchResult whereUsers($value)
+ * @property int|null $ig_id
+ * @property string|null $ig_username
+ * @method static Builder|SearchResult whereIgId($value)
+ * @method static Builder|SearchResult whereIgUsername($value)
+ * @mixin Eloquent
  */
 class SearchResult extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'ig_id', 'ig_username', 'key_word', 'see_more', 'inform_module', 'hashtags', 'places', 'users', 'rank_token'
+    ];
+
+    protected $casts = [
+        'hashtags' => 'array',
+        'places' => 'array',
+        'users' => 'array'
+    ];
 }

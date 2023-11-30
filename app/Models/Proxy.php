@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -15,17 +17,17 @@ use Illuminate\Support\Carbon;
  * @property string|null $password
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy query()
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy whereLogin($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy wherePort($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy whereProxy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Proxy whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|Proxy newModelQuery()
+ * @method static Builder|Proxy newQuery()
+ * @method static Builder|Proxy query()
+ * @method static Builder|Proxy whereCreatedAt($value)
+ * @method static Builder|Proxy whereId($value)
+ * @method static Builder|Proxy whereLogin($value)
+ * @method static Builder|Proxy wherePassword($value)
+ * @method static Builder|Proxy wherePort($value)
+ * @method static Builder|Proxy whereProxy($value)
+ * @method static Builder|Proxy whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Proxy extends Model
 {

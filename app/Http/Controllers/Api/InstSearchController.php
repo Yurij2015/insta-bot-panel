@@ -3,54 +3,46 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\IgSearchRepository;
+use App\Http\Requests\PostCurlRequests\IgSearch;
 use App\Models\Profile;
+use App\Models\SearchResult;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use JsonException;
-use function Symfony\Component\Translation\t;
 
 class InstSearchController extends Controller
 {
-
-    /**
-     * @throws JsonException
-     */
     public function index()
     {
-        dd($this->search('epam'));
-        return view('inst-search.index');
+        $profiles = Profile::all();
+        $searchResult = SearchResult::paginate(10);
+        return view('inst-search.index', compact('profiles', 'searchResult'));
     }
 
     /**
      * @throws JsonException
      */
-    private function search(string $key_word): \stdClass
+    public function handleSearch(Request $request, IgSearch $igSearch, IgSearchRepository $repository): RedirectResponse
     {
 
-        $profile = Profile::with('proxy')->find(2);
+        $key_word = $request->get('key_word');
+        $profile_id = $request->get('profile_id');
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.instagram.com/api/graphql');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_PROXY, $profile->proxy->proxy . ':' . $profile->proxy->port);
-        curl_setopt($ch, CURLOPT_PROXYUSERPWD, $profile->proxy->login . ':' . $profile->proxy->password);
+        $search = $igSearch->search($key_word, $profile_id)->data->xdt_api__v1__fbsearch__topsearch_connection;
+        $repository->saveSearchResult($search, $profile_id, $key_word);
 
-        $variables = "%7B%22data%22%3A%7B%22context%22%3A%22blended%22%2C%22include_reel%22%3A%22true%22%2C%22query%22%3A%22{$key_word}%22%2C%22search_surface%22%3A%22web_top_search%22%7D%2C%22hasQuery%22%3Atrue%7D";
-        $doc_id = 6460896210645763;
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "fb_dtsg=$profile->fb_dtsg&variables=$variables&doc_id=$doc_id");
-        curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+        $hashtags = $search->hashtags;
+        $repository->saveHashtags($hashtags);
 
-        $headers = array();
-        $headers[] = "Cookie: $profile->cookie";
-        $headers[] = 'Sec-Fetch-Site: same-origin';
-        $headers[] = "User-Agent: $profile->user_agent";
-        $headers[] = 'X-Ig-App-Id: 936619743392459';
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $places = $search->places;
+        $repository->savePlaces($places);
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close($ch);
-        return json_decode($result, false, 512, JSON_THROW_ON_ERROR);
+        $users = $search->users;
+        $repository->saveUsers($users);
+
+        return redirect()->route('inst-search');
     }
+
+
 }

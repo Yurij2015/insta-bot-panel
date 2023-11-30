@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\ProfileFollowers
@@ -25,32 +28,32 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $is_possible_scammer
  * @property array|null $is_possible_bad_actor
  * @property int|null $latest_reel_media
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers query()
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereAccountBadges($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereFbidV2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereFullName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereHasAnonymousProfilePicture($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereIsPossibleBadActor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereIsPossibleScammer($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereIsPrivate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereIsVerified($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereLatestReelMedia($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers wherePk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers wherePkId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereProfileId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereProfilePicId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereProfilePicUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereStrongId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereThirdPartyDownloadsEnabled($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProfileFollowers whereUsername($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|ProfileFollowers newModelQuery()
+ * @method static Builder|ProfileFollowers newQuery()
+ * @method static Builder|ProfileFollowers query()
+ * @method static Builder|ProfileFollowers whereAccountBadges($value)
+ * @method static Builder|ProfileFollowers whereCreatedAt($value)
+ * @method static Builder|ProfileFollowers whereFbidV2($value)
+ * @method static Builder|ProfileFollowers whereFullName($value)
+ * @method static Builder|ProfileFollowers whereHasAnonymousProfilePicture($value)
+ * @method static Builder|ProfileFollowers whereId($value)
+ * @method static Builder|ProfileFollowers whereIsPossibleBadActor($value)
+ * @method static Builder|ProfileFollowers whereIsPossibleScammer($value)
+ * @method static Builder|ProfileFollowers whereIsPrivate($value)
+ * @method static Builder|ProfileFollowers whereIsVerified($value)
+ * @method static Builder|ProfileFollowers whereLatestReelMedia($value)
+ * @method static Builder|ProfileFollowers wherePk($value)
+ * @method static Builder|ProfileFollowers wherePkId($value)
+ * @method static Builder|ProfileFollowers whereProfileId($value)
+ * @method static Builder|ProfileFollowers whereProfilePicId($value)
+ * @method static Builder|ProfileFollowers whereProfilePicUrl($value)
+ * @method static Builder|ProfileFollowers whereStrongId($value)
+ * @method static Builder|ProfileFollowers whereThirdPartyDownloadsEnabled($value)
+ * @method static Builder|ProfileFollowers whereUpdatedAt($value)
+ * @method static Builder|ProfileFollowers whereUsername($value)
+ * @mixin Eloquent
  */
 class ProfileFollowers extends Model
 {
