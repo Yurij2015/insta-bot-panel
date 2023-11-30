@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,20 +23,20 @@ use Illuminate\Support\Carbon;
  * @property string|null $raw_data
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Profile newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Profile newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Profile query()
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereCookie($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereFbDtsg($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereProxyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereRawData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUserAgent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUsername($value)
+ * @method static Builder|Profile newModelQuery()
+ * @method static Builder|Profile newQuery()
+ * @method static Builder|Profile query()
+ * @method static Builder|Profile whereCookie($value)
+ * @method static Builder|Profile whereCreatedAt($value)
+ * @method static Builder|Profile whereFbDtsg($value)
+ * @method static Builder|Profile whereId($value)
+ * @method static Builder|Profile wherePassword($value)
+ * @method static Builder|Profile whereProxyId($value)
+ * @method static Builder|Profile whereRawData($value)
+ * @method static Builder|Profile whereToken($value)
+ * @method static Builder|Profile whereUpdatedAt($value)
+ * @method static Builder|Profile whereUserAgent($value)
+ * @method static Builder|Profile whereUsername($value)
  * @mixin Eloquent
  */
 class Profile extends Model
