@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -44,11 +45,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|IgUser whereUnseenCount($value)
  * @method static Builder|IgUser whereUpdatedAt($value)
  * @method static Builder|IgUser whereUsername($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class IgUser extends Model
 {
     protected $fillable = [
+        'search_result_id',
         'username',
         'is_verified',
         'full_name',
