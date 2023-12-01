@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-md-6">
-            <h1>Search results</h1>
+            <h1>Search results. Hashtags</h1>
         </div>
     </div>
 @stop
@@ -13,13 +13,13 @@
     $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
                   </button>';
-    $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-2 shadow" title="Details">
+    $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                    <i class="fa fa-lg fa-fw fa-eye"></i>
                    </button>';
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'IgId', 'IgUserName', 'KeyWord', 'Hashtags', 'Places', 'IgUsers', 'Action'];
+    $heads = ['#', 'IgId', 'Name', 'Media Count', 'Action'];
 @endphp
 @section('content')
     <div class="row">
@@ -28,34 +28,16 @@
                 <div class="card-body">
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
-                        @foreach($searchResults as $result)
+                        @foreach($hashtags as $hashtag)
                             <tr>
-                                <td>{{ $result->id }}</td>
-                                <td>{{ $result->ig_id }}</td>
-                                <td>{{ $result->ig_username }}</td>
-                                <td>{{ $result->key_word }}</td>
-                                <td>
-                                    <a href="{{ route('ig-hashtags', $result->id) }}">{!! $btnDetails !!}</a>
-                                    <span class="countOfRors">
-                                    ({{ $result->numberOfHashtags }})
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="{{ route('ig-places', $result->id) }}">{!! $btnDetails !!}</a>
-                                    <span class="countOfRors">
-                                    ({{ $result->numberOfPlaces}})
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="{{ route('ig-users', $result->id) }}">{!! $btnDetails !!}</a>
-                                    <span class="countOfRors">
-                                    ({{ $result->numberOfUsers }})
-                                    </span>
-                                </td>
+                                <td>{{ $hashtag->id }}</td>
+                                <td>{{ $hashtag->ig_id }}</td>
+                                <td>{{ $hashtag->name }}</td>
+                                <td>{{ $hashtag->media_count }}</td>
                                 <td class="text-center">
                                     <nobr>
                                         <form method="POST"
-                                              action="{{ route('inst-search-result.delete', $result->id) }}"
+                                              action="{{ route('inst-search-result.delete', $hashtag->id) }}"
                                               style="display:inline" class="has-confirm"
                                               data-message="Delete this record?">
                                             @csrf
@@ -67,7 +49,7 @@
                             </tr>
                         @endforeach
                     </x-adminlte-datatable>
-                    {{ $searchResults->links('vendor.pagination.bootstrap-5') }}
+                    {{ $hashtags->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
@@ -82,16 +64,23 @@
                 e.preventDefault();
             }
         });
+        window.onload = function () {
+            let documentHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+
+            let elements = document.getElementsByClassName('elevation-4');
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.height = documentHeight + 'px';
+            }
+        }
     </script>
 @stop
 <style>
     .text-center {
         text-align: center;
     }
-
-    .countOfRors {
-        color: red;
-        font-weight: bold;
-    }
-
 </style>

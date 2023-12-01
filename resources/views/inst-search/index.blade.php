@@ -28,5 +28,4 @@
                 <x-adminlte-button class="btn-flat" type="submit" label="Search" theme="primary" icon="fas fa-search"/>
             </div>
         </form>
-    @dump($searchResult);
 @endsection

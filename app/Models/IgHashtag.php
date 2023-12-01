@@ -30,6 +30,6 @@ use Illuminate\Support\Carbon;
 class IgHashtag extends Model
 {
     protected $fillable = [
-        'ig_id', 'name', 'media_count'
+        'search_result_id', 'ig_id', 'name', 'media_count'
     ];
 }

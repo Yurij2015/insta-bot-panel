@@ -30,7 +30,7 @@ use Illuminate\Support\Carbon;
 class IgPlace extends Model
 {
     protected $fillable = [
-        'location', 'subtitle', 'title'
+        'search_result_id', 'location', 'subtitle', 'title'
     ];
 
     protected $casts = [

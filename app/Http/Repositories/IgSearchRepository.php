@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Log;
 
 class IgSearchRepository
 {
-    public function saveSearchResult($search, $profile_id, $key_word): void
+    public function saveSearchResult($search, $profile_id, $key_word): SearchResult
     {
         $profile = Profile::with('profileData')->find($profile_id);
-        SearchResult::create([
+        return SearchResult::create([
             'ig_id' => (int)$profile->profileData->inst_id,
             'ig_username' => $profile->username,
             'key_word' => $key_word,
@@ -27,7 +27,7 @@ class IgSearchRepository
         ]);
     }
 
-    public function saveHashtags($hashtags): void
+    public function saveHashtags($hashtags, $searchResultId): void
     {
         foreach ($hashtags as $hashtag) {
             try {
@@ -36,6 +36,7 @@ class IgSearchRepository
                         'ig_id' => $hashtag->hashtag->id,
                     ],
                     [
+                        'search_result_id' => $searchResultId,
                         'name' => $hashtag->hashtag->name,
                         'media_count' => $hashtag->hashtag->media_count,
                     ]
@@ -47,7 +48,7 @@ class IgSearchRepository
         }
     }
 
-    public function savePlaces($places): void
+    public function savePlaces($places, $searchResultId): void
     {
         foreach ($places as $place) {
             try {
@@ -56,6 +57,7 @@ class IgSearchRepository
                         'location->pk' => $place->place->location->pk,
                     ],
                     [
+                        'search_result_id' => $searchResultId,
                         'location' => $place->place->location,
                         'title' => $place->place->title,
                         'subtitle' => $place->place->subtitle,
@@ -68,7 +70,7 @@ class IgSearchRepository
         }
     }
 
-    public function saveUsers($users): void
+    public function saveUsers($users, $searchResultId): void
     {
         foreach ($users as $user) {
             try {
@@ -77,6 +79,7 @@ class IgSearchRepository
                         'pk' => $user->user->pk,
                     ],
                     [
+                        'search_result_id' => $searchResultId,
                         'username' => $user->user->username,
                         'is_verified' => $user->user->is_verified,
                         'full_name' => $user->user->full_name,

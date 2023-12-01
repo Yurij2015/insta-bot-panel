@@ -30,18 +30,18 @@ class InstSearchController extends Controller
         $profile_id = $request->get('profile_id');
 
         $search = $igSearch->search($key_word, $profile_id)->data->xdt_api__v1__fbsearch__topsearch_connection;
-        $repository->saveSearchResult($search, $profile_id, $key_word);
+        $savedSearch = $repository->saveSearchResult($search, $profile_id, $key_word);
 
         $hashtags = $search->hashtags;
-        $repository->saveHashtags($hashtags);
+        $repository->saveHashtags($hashtags, $savedSearch->id);
 
         $places = $search->places;
-        $repository->savePlaces($places);
+        $repository->savePlaces($places, $savedSearch->id);
 
         $users = $search->users;
-        $repository->saveUsers($users);
+        $repository->saveUsers($users, $savedSearch->id);
 
-        return redirect()->route('inst-search');
+        return redirect()->route('inst-search-result');
     }
 
 
