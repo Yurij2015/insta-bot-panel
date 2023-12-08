@@ -19,7 +19,7 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'UserName', 'IsVerified', 'FullName', 'Pk', 'Latest Reel', 'IgUsers', 'Action'];
+    $heads = ['#', 'UserName', 'IsVerified', 'FullName', 'Biography', 'Followers', 'Following', 'IsBusiness', 'IsProfessional', 'CategoryName', 'Pk', 'Latest Reel', 'IgUsers', 'Action'];
 @endphp
 @section('content')
     <div class="row">
@@ -38,6 +38,12 @@
                                 </td>
                                 <td>{{ $user->is_verified }}</td>
                                 <td>{{ $user->full_name }}</td>
+                                <td>{{ $user->profileInfo?->biography }}</td>
+                                <td>{{ $user->profileInfo?->edge_followed_by['count'] }}</td>
+                                <td>{{ $user->profileInfo?->edge_follow['count'] }}</td>
+                                <td>{{ $user->profileInfo?->is_business_account ? 'true' : 'false' }}</td>
+                                <td>{{ $user->profileInfo?->is_professional_account ? 'true' : 'false' }}</td>
+                                <td>{{ $user->profileInfo?->category_name }}</td>
                                 <td>{{ $user->pk }}</td>
                                 <td>{{ $user->latest_reel_media }}</td>
                                 <td>

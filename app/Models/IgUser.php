@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -65,4 +66,9 @@ class IgUser extends Model
         'is_unpublished',
         'ig_id'
     ];
+
+    public function profileInfo(): HasOne
+    {
+        return $this->hasOne(ProfileInfo::class, 'inst_id', 'pk');
+    }
 }

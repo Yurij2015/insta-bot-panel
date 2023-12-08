@@ -28,7 +28,7 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'UserName', 'Password', 'Cookie', 'Token', 'FbDtsg', 'UserAgent', 'Actions'];
+    $heads = ['#', 'Avatar', 'UserName', 'Password', 'PhoneNumber', 'Token', 'UserAgent', 'IsRegistered', 'Status' , 'Actions'];
 @endphp
 @section('content')
     <div class="row">
@@ -40,13 +40,17 @@
                         @foreach($profiles->items() as $row)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <img src="{{ asset("uploads/profiles/images/$row->username" . ".jpg") }}" alt="{{ $row->username }}"
+                                         width="100px">
+                                </td>
                                 <td>{{ $row->username }}</td>
                                 <td>{{ $row->password }}</td>
-                                <td>{{ $row->cookie }}</td>
+                                <td>{{ $row->phone_number }}</td>
                                 <td>{{ $row->token }}</td>
-                                <td>{{ $row->fb_dtsg }}</td>
                                 <td>{{ $row->user_agent }}</td>
-
+                                <td>{{ $row->is_registered ? 'true' : 'false' }}</td>
+                                <td>{{ $row->status }}</td>
                                 <td class="text-center">
                                     <nobr>
                                         <a href="{{ route('profiles.show', $row->id) }}">{!! $btnDetails !!}</a>

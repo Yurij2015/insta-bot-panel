@@ -15,7 +15,7 @@ class InstSearchController extends Controller
 {
     public function index()
     {
-        $profiles = Profile::all();
+        $profiles = Profile::where('status', 'active')->get();
         $searchResult = SearchResult::paginate(10);
         return view('inst-search.index', compact('profiles', 'searchResult'));
     }

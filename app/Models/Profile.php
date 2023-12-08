@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -37,12 +38,22 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Profile whereUpdatedAt($value)
  * @method static Builder|Profile whereUserAgent($value)
  * @method static Builder|Profile whereUsername($value)
+ * @property int|null $email
+ * @property int|null $fullName
+ * @property int|null $is_registered
+ * @property-read PersonalProfileData|null $profileData
+ * @property-read Proxy|null $proxy
+ * @method static Builder|Profile whereEmail($value)
+ * @method static Builder|Profile whereFullName($value)
+ * @method static Builder|Profile whereIsRegistered($value)
  * @mixin Eloquent
  */
 class Profile extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
-        'username', 'password', 'token', 'cookie', 'fb_dtsg',  'user_agent', 'proxy_id', 'raw_data'
+        'email', 'phone_number', 'fullName', 'username', 'password', 'token', 'cookie', 'fb_dtsg',  'user_agent', 'proxy_id', 'status', 'raw_data', 'is_registered'
     ];
 
     public function proxy(): BelongsTo

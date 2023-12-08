@@ -11,21 +11,44 @@
         <form method="post" action="{{ route('profiles.store') }}">
             @csrf
             <div class="card-body">
+                <x-adminlte-input name="email" placeholder="Email"
+                                  value="{{ old('email') }}"/>
+                <x-adminlte-input name="phone_number" placeholder="Phone Number"
+                                  value="{{ old('phone_number') }}"/>
+                <x-adminlte-input name="fullName" placeholder="FullName"
+                                  value="{{ old('fullName') }}"/>
                 <x-adminlte-input name="username" placeholder="Username"
-                                  value="{{ old('username') }}"/>
+                                  value="{{ old('username') }}" class="text-bold"/>
                 <x-adminlte-input name="password" placeholder="Password"
-                                  value="{{ old('password') }}"/>
+                                  value="{{ old('password') }}" class="text-bold"/>
                 <x-adminlte-input name="cookie" placeholder="Cookie" value="{{ old('cookie') }}"/>
                 <x-adminlte-input name="token" placeholder="Token" value="{{ old('token') }}"/>
                 <x-adminlte-input name="fb_dtsg" placeholder="FbDtsg" value="{{ old('fb_dtsg') }}"/>
-                <x-adminlte-input name="user_agent" placeholder="UserAgent"
-                                  value="{{ old('user_agent') }}"/>
-                <x-adminlte-input name="proxy" placeholder="Proxy" value="{{ old('proxy') }}"/>
-                <x-adminlte-input name="port" placeholder="Proxy port" value="{{ old('port') }}"/>
-                <x-adminlte-input name="login" placeholder="Proxy login"
-                                  value="{{ old('login') }}"/>
-                <x-adminlte-input name="proxy_password" placeholder="Proxy password"
-                                  value="{{ old('proxy_password') }}"/>
+                <x-adminlte-select name="user_agent">
+                    <option value="">Select user agent</option>
+                    @foreach($userAgents as $userAgent)
+                        <option value="{{ $userAgent->user_agent }}">{{ $userAgent->user_agent }}</option>
+                    @endforeach
+                </x-adminlte-select>
+                <x-adminlte-select name="proxy">
+                    <option value="">Select proxy</option>
+                    @foreach($proxies as $proxy)
+                        <option value="{{ $proxy->id }}">{{ $proxy->proxy }}</option>
+                    @endforeach
+                </x-adminlte-select>
+                <x-adminlte-select name="is_registered">
+                    <option value="">Select registered status</option>
+                    <option value="1">Registered</option>
+                    <option value="0">No Registered</option>
+                </x-adminlte-select>
+                <x-adminlte-select name="status">
+                    <option value="">Select status</option>
+                    <option value="active">active</option>
+                    <option value="active_web">active_web</option>
+                    <option value="pending">pending</option>
+                    <option value="suspended">suspended</option>
+                    <option value="stoped">stoped</option>
+                </x-adminlte-select>
                 <x-adminlte-textarea name="raw_data" placeholder="Raw Data" value="{{ old('raw_data') }}"/>
                 <x-adminlte-button class="btn-flat" type="submit" theme="success"
                                    icon="fas fa-lg fa-save"/>
