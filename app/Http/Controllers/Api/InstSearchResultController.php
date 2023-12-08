@@ -38,7 +38,7 @@ class InstSearchResultController extends Controller
 
     public function igUsers(SearchResult $searchResult, ImageDownloadRequest $imgDownload)
     {
-        $users = IgUser::where('search_result_id', $searchResult->id)->paginate(15);
+        $users = IgUser::with('profileInfo')->where('search_result_id', $searchResult->id)->paginate(15);
         foreach ($users as $user) {
             $fileExist = File::exists(public_path("uploads/profiles/images/$user->username" . ".jpg"));
             if (!$fileExist) {

@@ -65,55 +65,55 @@
                         <tr>
                             <th>Biography</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->biography !!}
+                                {!! $personalProfileData->profileData?->biography !!}
                             </td>
                         </tr>
                         <tr>
                             <th>Followers</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->edge_followed_by['count'] !!}
+                                {!! $personalProfileData->profileData?->edge_followed_by['count'] !!}
                             </td>
                         </tr>
                         <tr>
                             <th>Following</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->edge_follow['count'] !!}
+                                {!! $personalProfileData->profileData?->edge_follow['count'] !!}
                             </td>
                         </tr>
                         <tr>
                             <th>FullName</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->full_name !!}
+                                {!! $personalProfileData->profileData?->full_name !!}
                             </td>
                         </tr>
                         <tr>
                             <th class="no-wrap-th">Is Business Account</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->is_business_account !!}
+                                {!! $personalProfileData->profileData?->is_business_account !!}
                             </td>
                         </tr>
                         <tr>
                             <th class="no-wrap-th">Is Professional Account</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->is_professional_account !!}
+                                {!! $personalProfileData->profileData?->is_professional_account !!}
                             </td>
                         </tr>
                         <tr>
                             <th class="no-wrap-th">Category</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->category_name !!}
+                                {!! $personalProfileData->profileData?->category_name !!}
                             </td>
                         </tr>
                         <tr>
                             <th class="no-wrap-th">Is Private</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->is_private !!}
+                                {!! $personalProfileData->profileData?->is_private !!}
                             </td>
                         </tr>
                         <tr>
                             <th class="no-wrap-th">Is Verified</th>
                             <td colspan="2">
-                                {!! $personalProfileData->profileData->is_verified !!}
+                                {!! $personalProfileData->profileData?->is_verified !!}
                             </td>
                         </tr>
                         <tr>
