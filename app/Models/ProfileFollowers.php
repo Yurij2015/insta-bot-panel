@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -81,4 +82,9 @@ class ProfileFollowers extends Model
         'account_badges' => 'array',
         'is_possible_bad_actor' => 'array',
     ];
+
+    public function igUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(IgUser::class, 'user_follower', 'profile_follower_id', 'ig_user_id');
+    }
 }

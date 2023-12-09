@@ -53,6 +53,17 @@
                                 <td class="text-center">
                                     <nobr>
                                         <form method="POST"
+                                              action="{{ route('ig-user.set-get-followers-task', $user->id) }}"
+                                              style="display:inline">
+                                            @csrf
+                                            <x-adminlte-button type="submit" class="btn-flat btn-sm" label="GetFlws" theme="primary" icon="fas fa-arrow-circle-down"/>
+                                        </form>
+
+                                        <a href="{{ route('ig-users.show-followers', $user->id) }}">
+                                            <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info" icon="fas fa-eye"/>
+                                        </a>
+
+                                        <form method="POST"
                                               action="{{ route('inst-search-result.delete', $user->id) }}"
                                               style="display:inline" class="has-confirm"
                                               data-message="Delete this record?">
