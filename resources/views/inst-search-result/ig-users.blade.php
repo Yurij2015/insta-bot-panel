@@ -7,6 +7,19 @@
         <div class="col-md-6">
             <h1>Search results. Users</h1>
         </div>
+        <div class="col-md-6">
+            <form method="POST"
+                  action="{{ route('ig-users.set-get-full-data-task', $searchResult->id) }}"
+                  style="display:inline">
+                @csrf
+                <x-adminlte-button type="{{$isFullIgUsersDataTaskCreated ? 'button' : 'submit'}}"
+                                   class="btn btn-primary float-right btn-sm {{$isFullIgUsersDataTaskCreated ? 'disabled' : ''}}"
+                                   label="Get full data"
+                                   title="{{$isFullIgUsersDataTaskCreated ? 'Task to get full details already created' : 'Add a task to recieve full details'}}"
+                                   theme="primary"
+                />
+            </form>
+        </div>
     </div>
 @stop
 @php
@@ -26,6 +39,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
                         @foreach($users as $user)
@@ -47,7 +61,8 @@
                                 <td>{{ $user->pk }}</td>
                                 <td>{{ $user->latest_reel_media }}</td>
                                 <td>
-                                    <img src="{{ asset("uploads/profiles/images/$user->username" . ".jpg") }}" alt="{{ $user->username }}"
+                                    <img src="{{ asset("uploads/profiles/images/$user->username" . ".jpg") }}"
+                                         alt="{{ $user->username }}"
                                          width="100px">
                                 </td>
                                 <td class="text-center">
@@ -56,11 +71,13 @@
                                               action="{{ route('ig-user.set-get-followers-task', $user->id) }}"
                                               style="display:inline">
                                             @csrf
-                                            <x-adminlte-button type="submit" class="btn-flat btn-sm" label="GetFlws" theme="primary" icon="fas fa-arrow-circle-down"/>
+                                            <x-adminlte-button type="submit" class="btn-flat btn-sm {{$user->isGetFollowersTaskCreated ? 'disabled' : ''}}" label="GetFlws"
+                                                               theme="primary" icon="fas fa-arrow-circle-down"/>
                                         </form>
 
                                         <a href="{{ route('ig-users.show-followers', $user->id) }}">
-                                            <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info" icon="fas fa-eye"/>
+                                            <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info"
+                                                               icon="fas fa-eye"/>
                                         </a>
 
                                         <form method="POST"
@@ -69,7 +86,7 @@
                                               data-message="Delete this record?">
                                             @csrf
                                             @method('DELETE')
-                                            {!! $btnDelete !!}<i/>
+                                            {!! $btnDelete !!}
                                         </form>
                                     </nobr>
                                 </td>
@@ -85,6 +102,9 @@
 @section('js')
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
         $("form.has-confirm").submit(function (e) {
             const $message = $(this).data('message');
             if (!confirm($message)) {

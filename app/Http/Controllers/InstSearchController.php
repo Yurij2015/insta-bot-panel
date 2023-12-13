@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Repositories\IgSearchRepository;
 use App\Http\Requests\PostCurlRequests\IgSearch;
 use App\Models\Profile;

@@ -20,4 +20,7 @@ return [
     'menu'                          => 'MAIN MENU',
     'search'                        => 'SEARCH',
     'search_result'                 => 'SEARCH RESULT',
+    'get_followers_tasks'           => 'GET FOLLOWERS TASKS',
+    'get_full_ig_users_data_tasks'  => 'GET FULL DATA TASKS',
+    'tasks'                         => 'TASKS',
 ];
