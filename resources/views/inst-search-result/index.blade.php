@@ -19,13 +19,24 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'IgId', 'IgUserName', 'KeyWord', 'Hashtags', 'Places', 'IgUsers', 'Action'];
+    $heads = [
+        ['label' => '#', 'title' => 'ID'],
+        ['label' => 'IgId', 'title' => 'Instagram ID'],
+        ['label' => 'IgUserName', 'title' => 'Instagram UserName'],
+        ['label' => 'KeyWord', 'title' => 'Key Word'],
+        ['label' => 'Hashtags', 'title' => 'Hashtags'],
+        ['label' => 'Places', 'title' => 'Places'],
+        ['label' => 'IgUsers', 'title' => 'Instagram Users'],
+        ['label' => 'GetUsers Status', 'title' => 'Get Full IgUsers Task Status', 'width' => 13],
+        ['label' => 'Action', 'title' => 'Action']
+        ];
 @endphp
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
                         @foreach($searchResults as $result)
@@ -52,6 +63,12 @@
                                     ({{ $result->numberOfUsers }})
                                     </span>
                                 </td>
+                                <td>
+                                    {{ $result->fullIgUsersDataTaskCreated?->status }}
+                                    {{$result->fullIgUsersDataTaskCreated ? '|' : ''}}
+                                    {{ $result->fullIgUsersDataTaskCreated?->task_status }}
+
+                                </td>
                                 <td class="text-center">
                                     <nobr>
                                         <form method="POST"
@@ -60,7 +77,7 @@
                                               data-message="Delete this record?">
                                             @csrf
                                             @method('DELETE')
-                                            {!! $btnDelete !!}<i/>
+                                            {!! $btnDelete !!}
                                         </form>
                                     </nobr>
                                 </td>
@@ -76,6 +93,9 @@
 @section('js')
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
         $("form.has-confirm").submit(function (e) {
             const $message = $(this).data('message');
             if (!confirm($message)) {

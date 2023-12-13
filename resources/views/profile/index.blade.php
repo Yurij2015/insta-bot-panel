@@ -8,7 +8,7 @@
             <h1>List of profiles</h1>
         </div>
         <div class="col-md-6">
-            <a class="btn btn-primary float-right" href="{{ route('profiles.create') }}">Add profile</a>
+            <a class="btn btn-primary float-right btn-sm" href="{{ route('profiles.create') }}">Add profile</a>
         </div>
     </div>
 @stop
