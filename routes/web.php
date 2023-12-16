@@ -6,6 +6,7 @@ use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
+use App\Http\Controllers\OpenInBrowserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
         ->name('ig-users.set-get-full-data-task');
     Route::get('get-followers-tasks', [GetFollowersTaskController::class, 'index'])->name('get-followers-tasks');
     Route::get('get-full-ig-users-data-tasks', [GetFullIgUsersDataTaskController::class, 'index'])->name('get-full-ig-users-data-tasks');
+    Route::get('/open-in-browser/{profile}', OpenInBrowserController::class)->name('open-in-browser');
 });
 
 Auth::routes();

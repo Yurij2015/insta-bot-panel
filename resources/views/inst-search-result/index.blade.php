@@ -27,7 +27,7 @@
         ['label' => 'Hashtags', 'title' => 'Hashtags'],
         ['label' => 'Places', 'title' => 'Places'],
         ['label' => 'IgUsers', 'title' => 'Instagram Users'],
-        ['label' => 'GetUsers Status', 'title' => 'Get Full IgUsers Task Status', 'width' => 13],
+        ['label' => 'GetUsers Status', 'title' => 'Get Full IgUsers Task Status', 'width' => 15],
         ['label' => 'Action', 'title' => 'Action']
         ];
 @endphp

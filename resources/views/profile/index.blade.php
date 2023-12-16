@@ -22,9 +22,12 @@
     $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                    <i class="fa fa-lg fa-fw fa-eye"></i>
                    </button>';
-        $btnWebProfileInfo = '<button class="btn btn-xs btn-default text-info mx-1 shadow" title="Edit">
+    $btnWebProfileInfo = '<button class="btn btn-xs btn-default text-info mx-1 shadow" title="Edit">
                 <i class="fa fa-lg fa-fw fa-info"></i>
                 </button>';
+    $showInBrowser = '<button class="btn btn-xs btn-default text-fuchsia mx-1 shadow" title="Open in browser">
+                   <i class="fab fa-lg fa-fw fa-chrome fa-spin"></i>
+                   </button>';
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
@@ -53,6 +56,7 @@
                                 <td>{{ $row->status }}</td>
                                 <td class="text-center">
                                     <nobr>
+                                        <a href="{{ route('open-in-browser', $row->id) }}">{!! $showInBrowser !!}</a>
                                         <a href="{{ route('profiles.show', $row->id) }}">{!! $btnDetails !!}</a>
                                         <a href="{{ route('personal-profile-info', $row->id) }}">{!! $btnWebProfileInfo !!}</a>
                                         <a href="{{ route('profiles.edit', $row->id) }}">{!! $btnEdit !!}</a>
@@ -61,14 +65,14 @@
                                               data-message="Delete this account?">
                                             @csrf
                                             @method('DELETE')
-                                            {!! $btnDelete !!}<i/>
+                                            {!! $btnDelete !!}
                                         </form>
                                     </nobr>
                                 </td>
                             </tr>
                         @endforeach
                     </x-adminlte-datatable>
-{{--                    {{ $profiles->links('vendor.pagination.bootstrap-5') }}--}}
+                    {{ $profiles->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
