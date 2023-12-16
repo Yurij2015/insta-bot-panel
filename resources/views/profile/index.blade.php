@@ -72,7 +72,7 @@
                             </tr>
                         @endforeach
                     </x-adminlte-datatable>
-{{--                    {{ $profiles->links('vendor.pagination.bootstrap-5') }}--}}
+                    {{ $profiles->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
