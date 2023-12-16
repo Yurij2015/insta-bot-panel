@@ -36,7 +36,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-default-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back"
+                                       theme="primary" icon="fas fa-arrow-circle-left"/>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
                         @foreach($searchResults as $result)
@@ -93,7 +110,7 @@
 @section('js')
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
-        document.getElementById('backButton').addEventListener('click', function() {
+        document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
         $("form.has-confirm").submit(function (e) {
