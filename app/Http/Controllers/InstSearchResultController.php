@@ -10,6 +10,7 @@ use App\Models\IgPlace;
 use App\Models\IgUser;
 use App\Models\SearchResult;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Log;
 
@@ -76,6 +77,17 @@ class InstSearchResultController extends Controller
                 'task_status' => $taskStatus,
             ]);
         return redirect()->route('ig-users', ['searchResult' => $searchResult->id]);
+    }
+
+    public function deleteSearchResult(SearchResult $searchResult): RedirectResponse
+    {
+        if (is_array($searchResult->users) && empty($searchResult->users)
+            && is_array($searchResult->places) && empty($searchResult->places)
+            && is_array($searchResult->hashtags) && empty($searchResult->hashtags)) {
+            $searchResult->delete();
+            return redirect()->back()->with('success', 'Search result deleted!');
+        }
+        return redirect()->back()->with('error', 'Search result can not be deleted!');
     }
 
     private function numberOfHashtags(SearchResult $searchResult): int

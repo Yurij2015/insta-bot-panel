@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ig-hashags/{searchResult}', [InstSearchResultController::class, 'igHashtags'])->name('ig-hashtags');
     Route::get('/ig-places/{searchResult}', [InstSearchResultController::class, 'igPlaces'])->name('ig-places');
     Route::get('/ig-users/{searchResult}', [InstSearchResultController::class, 'igUsers'])->name('ig-users');
-    Route::post('/inst-search-result/delete/{searchResult}', [InstSearchResultController::class, 'deleteSearchResult'])
+    Route::delete('/inst-search-result/delete/{searchResult}', [InstSearchResultController::class, 'deleteSearchResult'])
         ->name('inst-search-result.delete');
     Route::get('/proxy-image/{url}', [InstSearchResultController::class, 'proxyImage'])
         ->name('proxy-image')->where('url', '.*');
