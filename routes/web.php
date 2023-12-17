@@ -4,10 +4,12 @@ use App\Http\Controllers\Api\InstProfileFollowersController;
 use App\Http\Controllers\Api\InstProfileInfoController;
 use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
+use App\Http\Controllers\GetProfilesDataFromListController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
 use App\Http\Controllers\OpenInBrowserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +52,17 @@ Route::middleware('auth')->group(function () {
     Route::get('get-followers-tasks', [GetFollowersTaskController::class, 'index'])->name('get-followers-tasks');
     Route::get('get-full-ig-users-data-tasks', [GetFullIgUsersDataTaskController::class, 'index'])->name('get-full-ig-users-data-tasks');
     Route::get('/open-in-browser/{profile}', OpenInBrowserController::class)->name('open-in-browser');
+    Route::get('/profile-lists', [ProfileListController::class, 'index'])->name('profile-lists');
+    Route::get('/add-profiles-list', [ProfileListController::class, 'addProfileList'])->name('add-profiles-list');
+    Route::post('/store-profiles-list', [ProfileListController::class, 'storeProfilesList'])->name('store-profiles-list');
+    Route::delete('/profile-lists/delete/{profileList}', [ProfileListController::class, 'deleteProfileList'])
+        ->name('profile-lists.delete');
+    Route::get('get-profiles-data-from-list', [GetProfilesDataFromListController::class, 'index'])->name('get-followers-tasks');
+    Route::get('/edit-profiles-list/{profileList}', [ProfileListController::class, 'editProfileList'])->name('edit-profiles-list');
+    Route::post('/update-profiles-list/{profileList}', [ProfileListController::class, 'updateProfilesList'])->name('update-profiles-list');
+    Route::post('/set-get-profiles-from-list-task/{profileList}', [ProfileListController::class, 'setGetProfilesFromListTask'])->name('set-get-profiles-from-list-task');
+
+//    get-profiles-data-from-list
 });
 
 Auth::routes();

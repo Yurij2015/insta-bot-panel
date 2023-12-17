@@ -325,6 +325,18 @@ return [
             'icon'    => 'fas fa-fw fa-list',
             'url'        => 'inst-search-result',
         ],
+        [
+            'text'       => 'profile_lists',
+            'icon_color' => 'cyan',
+            'icon'    => 'fas fa-fw fa-list-alt',
+            'url'        => 'profile-lists',
+        ],
+        [
+            'text'       => 'add_profiles_list',
+            'icon_color' => 'cyan',
+            'icon'    => 'fas fa-fw fa-plus',
+            'url'        => 'add-profiles-list',
+        ],
         ['header' => 'tasks'],
         [
             'text'       => 'get_followers_tasks',
@@ -337,6 +349,12 @@ return [
             'icon_color' => 'olive',
             'icon'    => 'fas fa-fw fa-square-full',
             'url'        => 'get-full-ig-users-data-tasks',
+        ],
+        [
+            'text'       => 'get_profiles_data_from_list',
+            'icon_color' => 'olive',
+            'icon'    => 'fas fa-fw fa-square-full',
+            'url'        => 'get-profiles-data-from-list',
         ],
     ],
 

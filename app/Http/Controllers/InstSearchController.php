@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\IgSearchRepository;
 use App\Http\Requests\PostCurlRequests\IgSearch;
 use App\Models\Profile;
-use App\Models\SearchResult;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use JsonException;
@@ -15,8 +14,7 @@ class InstSearchController extends Controller
     public function index()
     {
         $profiles = Profile::where('status', 'active_web')->get();
-        $searchResult = SearchResult::paginate(20);
-        return view('inst-search.index', compact('profiles', 'searchResult'));
+        return view('inst-search.index', compact('profiles'));
     }
 
     /**
