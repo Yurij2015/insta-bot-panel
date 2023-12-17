@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -255,4 +256,10 @@ class ProfileInfo extends Model
         'edge_owner_to_timeline_media' => 'array',
         'edge_saved_media' => 'array',
         'edge_media_collections' => 'array'
-    ];}
+    ];
+
+    public function profileList(): BelongsToMany
+    {
+        return $this->belongsToMany(ProfileList::class, 'igprofile_list', 'ig_profile_id', 'list_id');
+    }
+}
