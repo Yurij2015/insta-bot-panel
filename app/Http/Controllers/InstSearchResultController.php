@@ -45,10 +45,10 @@ class InstSearchResultController extends Controller
     {
         $users = IgUser::with('profileInfo')->where('search_result_id', $searchResult->id)->paginate(15);
 
-        $users->getCollection()->transform(function ($user) use ($searchResult, $imgDownload) {
+        $users->getCollection()->transform(function ($user) use ($imgDownload) {
             $fileExist = File::exists(public_path("uploads/profiles/images/$user->username" . ".jpg"));
             if (!$fileExist) {
-                $imgDownload->downloadAndSaveImage($user, $user->username . '.jpg');
+                $imgDownload->downloadAndSaveImageForSearch($user, $user->username . '.jpg');
             }
             $user->isGetFollowersTaskCreated = GetFollowersTask::where('profile_id', $user->pk)->first();
             return $user;

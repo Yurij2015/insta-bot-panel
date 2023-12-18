@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetProfilesFromListsTaskSaveRequest;
+use App\Http\Requests\ImageDownloadRequest;
 use App\Http\Requests\ProfileListsSaveRequest;
+use App\Models\GetFollowersTask;
 use App\Models\GetProfilesDataFromListTask;
 use App\Models\Profile;
+use App\Models\ProfileInfo;
 use App\Models\ProfileList;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\File;
 
 class ProfileListController extends Controller
 {
@@ -77,6 +81,28 @@ class ProfileListController extends Controller
         $validatedData['task_status'] = $taskStatus;
         GetProfilesDataFromListTask::create($validatedData);
         return redirect()->back()->with('success', 'Task succesfully created!!!');
+    }
+
+    public function showListItemProfiles(ProfileList $profileList, ImageDownloadRequest $imgDownload)
+    {
+        $list = $profileList->profileInfo()->paginate();
+
+        $list->getCollection()->transform(function ($user) use ($profileList, $imgDownload) {
+            $fileExist = File::exists(public_path("uploads/profiles/images/$user->username" . ".jpg"));
+            if (!$fileExist) {
+                $imgDownload->downloadAndSaveImageForList($user, $user->username . '.jpg', $profileList);
+            }
+            $user->isGetFollowersTaskCreated = GetFollowersTask::where('profile_id', $user->inst_id)->first();
+            return $user;
+        });
+
+        return view('profile-list.show', compact('list', 'profileList'));
+    }
+
+    public function showProfileFollowers(ProfileInfo $profileInfo)
+    {
+        $profileFollowers = $profileInfo->profileFollowers()->paginate();
+        return view('profile-list.profile-followers', compact('profileFollowers', 'profileInfo'));
     }
 
     private function prepareList($list): string

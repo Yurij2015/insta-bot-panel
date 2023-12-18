@@ -43,8 +43,10 @@ Route::middleware('auth')->group(function () {
         ->name('inst-search-result.delete');
     Route::get('/proxy-image/{url}', [InstSearchResultController::class, 'proxyImage'])
         ->name('proxy-image')->where('url', '.*');
-    Route::post('/ig-user.set-get-followers-task/{igUser}', [InstProfileFollowersController::class, 'setGetFollowersTask'])
-        ->name('ig-user.set-get-followers-task');
+    Route::post('/ig-user.set-get-followers-task-for-search/{igUser}', [InstProfileFollowersController::class, 'setGetFollowersTaskForSearch'])
+        ->name('ig-user.set-get-followers-task-for-search');
+    Route::post('/set-get-followers-task-for-list/{profileInfo}', [InstProfileFollowersController::class, 'setGetFollowersTaskForProfileOfList'])
+        ->name('set-get-followers-task-for-list');
     Route::get('ig-users.show-followers/{igUser}', [InstProfileFollowersController::class, 'showFollowers'])
         ->name('ig-users.show-followers');
     Route::post('/ig-users.set-get-full-data-task/{searchResult}', [InstSearchResultController::class, 'setGetFullDataTask'])
@@ -60,7 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::get('get-profiles-data-from-list', [GetProfilesDataFromListController::class, 'index'])->name('get-followers-tasks');
     Route::get('/edit-profiles-list/{profileList}', [ProfileListController::class, 'editProfileList'])->name('edit-profiles-list');
     Route::post('/update-profiles-list/{profileList}', [ProfileListController::class, 'updateProfilesList'])->name('update-profiles-list');
-    Route::post('/set-get-profiles-from-list-task/{profileList}', [ProfileListController::class, 'setGetProfilesFromListTask'])->name('set-get-profiles-from-list-task');
+    Route::post('/set-get-profiles-from-list-task/{profileList}', [ProfileListController::class, 'setGetProfilesFromListTask'])
+        ->name('set-get-profiles-from-list-task');
+    Route::get('/show-list-item-profiles/{profileList}', [ProfileListController::class, 'showListItemProfiles'])->name('show-list-item-profiles');
+    Route::get('profile-list.show-followers/{profileInfo}', [ProfileListController::class, 'showProfileFollowers'])
+        ->name('profile-list.show-followers');
 
 //    get-profiles-data-from-list
 });

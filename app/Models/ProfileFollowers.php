@@ -87,4 +87,9 @@ class ProfileFollowers extends Model
     {
         return $this->belongsToMany(IgUser::class, 'user_follower', 'profile_follower_id', 'ig_user_id');
     }
+
+    public function profileInfo(): BelongsToMany
+    {
+        return $this->belongsToMany(ProfileInfo::class, 'list_user_follower', 'profile_follower_id', 'profile_id');
+    }
 }
