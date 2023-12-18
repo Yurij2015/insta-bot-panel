@@ -262,4 +262,9 @@ class ProfileInfo extends Model
     {
         return $this->belongsToMany(ProfileList::class, 'igprofile_list', 'ig_profile_id', 'list_id');
     }
+
+    public function profileFollowers(): BelongsToMany
+    {
+        return $this->belongsToMany(ProfileFollowers::class, 'list_user_follower', 'profile_id', 'profile_follower_id');
+    }
 }

@@ -66,7 +66,7 @@
                                 <td class="text-center">
                                     <span class="white-space-nowrap">
                                         <form method="POST"
-                                              action="{{ route('set-get-profiles-from-list-task', $listItem->id) }}"
+                                              action="{{ route('ig-user.set-get-followers-task-for-search', $listItem->id) }}"
                                               style="display:inline">
                                             @csrf
                                             <x-adminlte-button type="{{$listItem?->task_created ? 'button' : 'submit'}}"
@@ -74,7 +74,7 @@
                                                                label="GetData"
                                                                theme="primary" icon="fas fa-arrow-circle-down"/>
                                         </form>
-                                        <a href="{{ route('ig-users.show-followers', $listItem->id) }}">
+                                        <a href="{{ route('show-list-item-profiles', $listItem->id) }}">
                                             <x-adminlte-button class="btn-flat btn-sm" label="ShowData" theme="info"
                                                                icon="fas fa-eye"/>
                                         </a>

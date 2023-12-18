@@ -4,21 +4,9 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-md-6">
-            <h1>Search results. Users</h1>
-        </div>
-        <div class="col-md-6">
-            <form method="POST"
-                  action="{{ route('ig-users.set-get-full-data-task', $searchResult->id) }}"
-                  style="display:inline">
-                @csrf
-                <x-adminlte-button type="{{$isFullIgUsersDataTaskCreated ? 'button' : 'submit'}}"
-                                   class="btn btn-primary float-right btn-sm {{$isFullIgUsersDataTaskCreated ? 'disabled' : ''}}"
-                                   label="Get full data"
-                                   title="{{$isFullIgUsersDataTaskCreated ? 'Task to get full details already created' : 'Add a task to recieve full details'}}"
-                                   theme="primary"
-                />
-            </form>
+        <div class="col-md-12">
+            <h1>List - {{ $profileList->name }}</h1>
+            <h6>{{$profileList->description}}</h6>
         </div>
     </div>
 @stop
@@ -32,56 +20,82 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'UserName', 'IsVerified', 'FullName', 'Biography', 'Followers', 'Following', 'IsBusiness', 'IsProfessional', 'CategoryName', 'Pk', 'Latest Reel', 'Avatar', 'Action'];
+    $heads = [
+    ['label' => '#', 'title' => '#'],
+    ['label' => 'UserName','title' => 'UserName'],
+    ['label' => 'IsVerified','title' => 'IsVerified'],
+    ['label' => 'FullName','title' => 'FullName'],
+    ['label' => 'Biography','title' => 'Biography'],
+    ['label' => 'Followers','title' => 'Followers'],
+    ['label' => 'Following','title' => 'Following'],
+    ['label' => 'IsBusiness','title' => 'IsBusiness'],
+    ['label' => 'IsProfessional','title' => 'IsProfessional'],
+    ['label' => 'CategoryName','title' => 'CategoryName'],
+    ['label' => 'Pk','title' => 'Inst ID'],
+    ['label' => 'Links','title' => 'Bio links'],
+    ['label' => 'Avatar','title' => 'Avatar'],
+    ['label' => 'Action','title' => 'Action']
+    ];
 @endphp
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
+                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back"
+                                       theme="primary" icon="fas fa-arrow-circle-left"/>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
-                        @foreach($users as $user)
+                        @foreach($list as $listItem)
                             <tr>
-                                <td>{{ $user->id }}</td>
+                                <td>{{ $listItem->id }}</td>
                                 <td>
-                                    <a href="https://www.instagram.com/{{$user->username}}" target="_blank">
-                                        {{ $user->username }}
+                                    <a href="https://www.instagram.com/{{$listItem->username}}" target="_blank">
+                                        {{ $listItem->username }}
                                     </a>
                                 </td>
-                                <td>{{ $user->is_verified }}</td>
-                                <td>{{ $user->full_name }}</td>
-                                <td>{{ $user->profileInfo?->biography }}</td>
-                                <td>{{ $user->profileInfo?->edge_followed_by['count'] }}</td>
-                                <td>{{ $user->profileInfo?->edge_follow['count'] }}</td>
-                                <td>{{ $user->profileInfo?->is_business_account ? 'true' : 'false' }}</td>
-                                <td>{{ $user->profileInfo?->is_professional_account ? 'true' : 'false' }}</td>
-                                <td>{{ $user->profileInfo?->category_name }}</td>
-                                <td>{{ $user->pk }}</td>
-                                <td>{{ $user->latest_reel_media }}</td>
+                                <td>{{ $listItem->is_verified }}</td>
+                                <td>{{ $listItem->full_name }}</td>
+                                <td>{{ $listItem->biography }}</td>
+                                <td>{{ $listItem->edge_followed_by['count'] }}</td>
+                                <td>{{ $listItem?->edge_follow['count'] }}</td>
+                                <td>{{ $listItem?->is_business_account ? 'true' : 'false' }}</td>
+                                <td>{{ $listItem?->is_professional_account ? 'true' : 'false' }}</td>
+                                <td>{{ $listItem?->category_name }}</td>
+                                <td>{{ $listItem->inst_id }}</td>
                                 <td>
-                                    <img src="{{ asset("uploads/profiles/images/$user->username" . ".jpg") }}"
-                                         alt="{{ $user->username }}"
+                                    @php
+                                        foreach ($listItem?->bio_links as $bio_link) {
+                                    @endphp
+                                    <a href="{{ $bio_link['url'] }}" target="_blank">{{ $bio_link['url'] }}</a>
+                                    @php
+                                        }
+                                    @endphp
+                                </td>
+                                <td>
+                                    <img src="{{ asset("uploads/profiles/images/$listItem->username" . ".jpg") }}"
+                                         alt="{{ $listItem->username }}"
                                          width="100px">
                                 </td>
                                 <td class="text-center">
                                     <nobr>
                                         <form method="POST"
-                                              action="{{ route('ig-user.set-get-followers-task-for-search', $user->id) }}"
+                                              action="{{ route('set-get-followers-task-for-list', $listItem->id) }}"
                                               style="display:inline">
                                             @csrf
-                                            <x-adminlte-button type="submit" class="btn-flat btn-sm {{$user->isGetFollowersTaskCreated ? 'disabled' : ''}}" label="GetFlws"
+                                            <x-adminlte-button type="{{ $listItem->isGetFollowersTaskCreated ? 'button' : 'submit' }}"
+                                                               class="btn-flat btn-sm {{$listItem->isGetFollowersTaskCreated ? 'disabled' : ''}}"
+                                                               label="GetFlws"
                                                                theme="primary" icon="fas fa-arrow-circle-down"/>
                                         </form>
 
-                                        <a href="{{ route('ig-users.show-followers', $user->id) }}">
+                                        <a href="{{ route('profile-list.show-followers', $listItem->id) }}">
                                             <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info"
                                                                icon="fas fa-eye"/>
                                         </a>
 
                                         <form method="POST"
-                                              action="{{ route('inst-search-result.delete', $user->id) }}"
+                                              action="{{ route('inst-search-result.delete', $listItem->id) }}"
                                               style="display:inline" class="has-confirm"
                                               data-message="Delete this record?">
                                             @csrf
@@ -93,7 +107,7 @@
                             </tr>
                         @endforeach
                     </x-adminlte-datatable>
-                    {{ $users->links('vendor.pagination.bootstrap-5') }}
+                    {{ $list->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
@@ -102,7 +116,7 @@
 @section('js')
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
-        document.getElementById('backButton').addEventListener('click', function() {
+        document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
         $("form.has-confirm").submit(function (e) {
