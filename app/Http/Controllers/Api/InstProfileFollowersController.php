@@ -50,7 +50,7 @@ class InstProfileFollowersController extends Controller
             return redirect()->back()->with('error', 'Task already isset');
         }
 
-        $profileList = $profileInfo->profileList()->first();
+        $profileList = $profileInfo->profileList()->first(); //TODO try to add profile list id
         $personalProfileUsername = Profile::find($profileList->ig_username);
         $status = 'active';
         $taskStatus = 'waiting';

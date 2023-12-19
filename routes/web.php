@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\InstProfileInfoController;
 use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\GetProfilesDataFromListController;
+use App\Http\Controllers\GoThroughProfilesInBrowserController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
 use App\Http\Controllers\OpenInBrowserController;
@@ -67,8 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-list-item-profiles/{profileList}', [ProfileListController::class, 'showListItemProfiles'])->name('show-list-item-profiles');
     Route::get('profile-list.show-followers/{profileInfo}', [ProfileListController::class, 'showProfileFollowers'])
         ->name('profile-list.show-followers');
-
-//    get-profiles-data-from-list
+    Route::get('go-through-profiles-in-browser/{profileList}/{profileInfo}', GoThroughProfilesInBrowserController::class)->name('go-through-profiles-in-browser');
+    Route::get('go-through-profiles-in-browser/{profileList}', GoThroughProfilesInBrowserController::class)->name('go-through-profiles-in-browser');
 });
 
 Auth::routes();

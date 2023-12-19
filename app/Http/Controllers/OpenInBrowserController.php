@@ -23,6 +23,6 @@ class OpenInBrowserController extends Controller
             'proxy_login' => $profile->proxy->login,
             'proxy_password' => $profile->proxy->password,
         ]);
-        return redirect()->route('profiles.index');
+        return redirect()->back();
     }
 }
