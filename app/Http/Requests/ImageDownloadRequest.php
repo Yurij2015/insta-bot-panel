@@ -16,7 +16,12 @@ class ImageDownloadRequest
     {
         $searchResult = SearchResult::where('id', '=', $user->search_result_id)->first();
         $profile = Profile::where('username', '=', $searchResult?->ig_username)->with('proxy')->first();
-        $profilePicUrl = $user->profile_pic_url;
+        $profileInfo = ProfileInfo::where('inst_id', $user->pk)->first();
+        if ($profileInfo) {
+            $profilePicUrl = $profileInfo->profile_pic_url;
+        } else {
+            $profilePicUrl = $user->profile_pic_url;
+        }
         if ($profile) {
             $this->downloadAndSaveImage($profile, $profilePicUrl, $imageName);
         }

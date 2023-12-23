@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -53,4 +54,8 @@ class SearchResult extends Model
         'places' => 'array',
         'users' => 'array'
     ];
+    public function igUsers(): HasMany
+    {
+        return $this->hasMany(IgUser::class, 'search_result_id', 'id');
+    }
 }

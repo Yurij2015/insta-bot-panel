@@ -31,7 +31,8 @@ class GetProfileFollowers extends Command
      */
     public function handle(ProfileFollowersRequest $profileFollowers): void
     {
-        $getFollowersTask = GetFollowersTask::where('status', 'active')->get();
+        $getFollowersTask = GetFollowersTask::where('status', 'active')
+            ->whereNotNull('search_result_id')->inRandomOrder()->get();
         foreach ($getFollowersTask as $task) {
             $taskStartedAt = Carbon::now()->format('Y-m-d H:i:s');
             $profileIdToGetFollowers = $this->getProfileToGetFollowers($task);

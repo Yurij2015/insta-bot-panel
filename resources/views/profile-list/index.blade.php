@@ -66,7 +66,7 @@
                                 <td class="text-center">
                                     <span class="white-space-nowrap">
                                         <form method="POST"
-                                              action="{{ route('ig-user.set-get-followers-task-for-search', $listItem->id) }}"
+                                              action="{{ route('set-get-profiles-of-list-data', [$listItem->id, $listItem->ig_username]) }}"
                                               style="display:inline">
                                             @csrf
                                             <x-adminlte-button type="{{$listItem?->task_created ? 'button' : 'submit'}}"

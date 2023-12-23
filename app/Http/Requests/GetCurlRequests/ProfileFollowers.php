@@ -58,13 +58,14 @@ class ProfileFollowers
             }
             $maxId = $result['next_max_id'] ?? null;
             $continue = array_key_exists('next_max_id', $result) && $result['next_max_id'];
-            $rand_pause = random_int(3000000, 9000000);
+            $rand_pause = random_int(9000000, 15000000);
             $rand_i = random_int(8, 16);
             $required_delay = random_int(14, 17);
             $remainder_from_division = random_int(1, 9);
             if ($i % $rand_i === $remainder_from_division || $i % $required_delay === 0) {
-                $rand_pause = random_int(9000000, 18000000);
+                $rand_pause = random_int(16000000, 24000000);
             }
+            Log::info("Pause active (search) - " . $rand_pause);
             usleep($rand_pause);
             $i++;
         }

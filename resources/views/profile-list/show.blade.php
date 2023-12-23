@@ -28,7 +28,7 @@
     ['label' => 'UserName','title' => 'UserName'],
     ['label' => 'IsVerified','title' => 'IsVerified'],
     ['label' => 'FullName','title' => 'FullName'],
-    ['label' => 'Biography','title' => 'Biography'],
+    ['label' => 'Biography','title' => 'Biography', 'width' => 40],
     ['label' => 'Followers','title' => 'Followers'],
     ['label' => 'Following','title' => 'Following'],
     ['label' => 'IsBusiness','title' => 'IsBusiness'],
@@ -90,9 +90,8 @@
                                         <a href="{{ route('go-through-profiles-in-browser', ['profileList' => $profileList->id, 'profileInfo' => $listItem->id]) }}">
                                             {!! $goThroughProfilesInBrowser !!}
                                         </a>
-                                        {{--                                    TODO try to add profile list id in route - set-get-followers-task-for-list --}}
                                         <form method="POST"
-                                              action="{{ route('set-get-followers-task-for-list', $listItem->id) }}"
+                                              action="{{ route('set-get-followers-task-for-list', ['profileList' => $profileList->id, 'profileInfo' => $listItem->id]) }}"
                                               style="display:inline">
                                             @csrf
                                             <x-adminlte-button
