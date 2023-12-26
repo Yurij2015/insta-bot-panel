@@ -33,7 +33,7 @@ class GetProfilesDataFromListTasks extends Command
      */
     public function handle(WebProfileInfo $webProfileInfo): void
     {
-        $getProfilesDataFromListTasks = GetProfilesDataFromListTask::all();
+        $getProfilesDataFromListTasks = GetProfilesDataFromListTask::where('status', 'active')->get();
         foreach ($getProfilesDataFromListTasks as $task) {
             $profilesList = explode(",", ProfileList::find($task->profile_list_id)->profiles_list);
             $taskStartedAt = Carbon::now()->format('Y-m-d H:i:s');

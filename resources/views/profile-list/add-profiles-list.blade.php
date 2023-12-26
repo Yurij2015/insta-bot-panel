@@ -14,7 +14,7 @@
         <div class="card-header">
             <h3 class="card-title">Profiles List Add Form</h3>
         </div>
-        <form method="post" action="{{ route('add-profiles-list') }}">
+        <form method="post" action="{{ route('store-profiles-list') }}">
             @csrf
             <div class="card-body">
                 <x-adminlte-input name="name" placeholder="Title" label="Title"

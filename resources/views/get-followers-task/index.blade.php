@@ -22,6 +22,7 @@
     $heads = [
         ['label' => '#', 'title' => 'ID'],
         ['label' => 'Profile ID', 'title' => 'Profile ID'],
+        ['label' => 'Count Of Followers', 'title' => 'Count Of Followers'],
         ['label' => 'Serch result ID', 'title' => 'Serch result ID'],
         ['label' => 'Personal profile', 'title' => 'Personal profile username'],
         ['label' => 'Status', 'title' => 'Status'],
@@ -43,6 +44,7 @@
                             <tr>
                                 <td>{{ $task->id }}</td>
                                 <td>{{ $task->profile_id }}</td>
+                                <td>{{ $task->countOfFollowers }}</td>
                                 <td>{{ $task->search_result_id }}</td>
                                 <td>{{ $task->personal_profile_username }}</td>
                                 <td>{{ $task->status }}</td>

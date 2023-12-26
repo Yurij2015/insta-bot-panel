@@ -16,7 +16,7 @@ class GetListProfileFollowers extends Command
      *
      * @var string
      */
-    protected $signature = 'get-profile-followers';
+    protected $signature = 'get-list-profile-followers';
 
     /**
      * The console command description.
@@ -31,7 +31,8 @@ class GetListProfileFollowers extends Command
      */
     public function handle(ListProfileFollowers $profileFollowers): void
     {
-        $getFollowersTask = GetFollowersTask::where('status', 'active')->get();
+        $getFollowersTask = GetFollowersTask::where('status', 'active')
+            ->where('search_result_id', null)->inRandomOrder()->get();
         foreach ($getFollowersTask as $task) {
             $taskStartedAt = Carbon::now()->format('Y-m-d H:i:s');
             $profileIdToGetFollowers = $this->getProfileToGetFollowers($task);

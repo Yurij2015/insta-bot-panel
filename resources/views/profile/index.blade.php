@@ -31,7 +31,7 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'Avatar', 'UserName', 'Password', 'PhoneNumber', 'Token', 'UserAgent', 'IsRegistered', 'Status' , 'Actions'];
+    $heads = ['#', 'Avatar', 'UserName', 'Password', 'PhoneNumber', 'Token', 'IsRegistered', 'Status' , 'Actions'];
 @endphp
 @section('content')
     <div class="row">
@@ -48,10 +48,10 @@
                                          width="100px">
                                 </td>
                                 <td>{{ $row->username }}</td>
-                                <td>{{ $row->password }}</td>
+                                <td>{!! $row->password !!}</td>
                                 <td>{{ $row->phone_number }}</td>
                                 <td>{{ $row->token }}</td>
-                                <td>{{ $row->user_agent }}</td>
+{{--                                <td>{{ $row->user_agent }}</td>--}}
                                 <td>{{ $row->is_registered ? 'true' : 'false' }}</td>
                                 <td>{{ $row->status }}</td>
                                 <td class="text-center">

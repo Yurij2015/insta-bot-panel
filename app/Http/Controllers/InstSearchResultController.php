@@ -10,7 +10,6 @@ use App\Models\IgPlace;
 use App\Models\IgUser;
 use App\Models\SearchResult;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Log;
 
@@ -88,6 +87,12 @@ class InstSearchResultController extends Controller
             return redirect()->back()->with('success', 'Search result deleted!');
         }
         return redirect()->back()->with('error', 'Search result can not be deleted!');
+    }
+
+    public function igUserDelete(IgUser $igUser): RedirectResponse
+    {
+        $igUser->delete();
+        return redirect()->back()->with('success', 'Search result deleted!');
     }
 
     private function numberOfHashtags(SearchResult $searchResult): int

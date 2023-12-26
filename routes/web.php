@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\InstProfileInfoController;
 use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\GetProfilesDataFromListController;
+use App\Http\Controllers\GoThroughProfilesInBrowserController;
+use App\Http\Controllers\GoThroughSearchProfilesInBrowserController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
 use App\Http\Controllers\OpenInBrowserController;
@@ -41,12 +43,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/ig-users/{searchResult}', [InstSearchResultController::class, 'igUsers'])->name('ig-users');
     Route::delete('/inst-search-result/delete/{searchResult}', [InstSearchResultController::class, 'deleteSearchResult'])
         ->name('inst-search-result.delete');
+    Route::delete('/ig-user/delete/{igUser}', [InstSearchResultController::class, 'igUserDelete'])
+        ->name('ig-user.delete');
     Route::get('/proxy-image/{url}', [InstSearchResultController::class, 'proxyImage'])
         ->name('proxy-image')->where('url', '.*');
     Route::post('/ig-user.set-get-followers-task-for-search/{igUser}', [InstProfileFollowersController::class, 'setGetFollowersTaskForSearch'])
         ->name('ig-user.set-get-followers-task-for-search');
-    Route::post('/set-get-followers-task-for-list/{profileInfo}', [InstProfileFollowersController::class, 'setGetFollowersTaskForProfileOfList'])
+    Route::post('/set-get-followers-task-for-list/{profileList}/{profileInfo}', [InstProfileFollowersController::class, 'setGetFollowersTaskForProfileOfList'])
         ->name('set-get-followers-task-for-list');
+    Route::post('/set-get-profiles-of-list-data/{profileList}/{profileInfo}', [InstProfileFollowersController::class, 'setGetProfilesOfListData'])
+        ->name('set-get-profiles-of-list-data');
     Route::get('ig-users.show-followers/{igUser}', [InstProfileFollowersController::class, 'showFollowers'])
         ->name('ig-users.show-followers');
     Route::post('/ig-users.set-get-full-data-task/{searchResult}', [InstSearchResultController::class, 'setGetFullDataTask'])
@@ -67,8 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-list-item-profiles/{profileList}', [ProfileListController::class, 'showListItemProfiles'])->name('show-list-item-profiles');
     Route::get('profile-list.show-followers/{profileInfo}', [ProfileListController::class, 'showProfileFollowers'])
         ->name('profile-list.show-followers');
-
-//    get-profiles-data-from-list
+    Route::get('go-through-profiles-in-browser/{profileList}/{profileInfo}', GoThroughProfilesInBrowserController::class)->name('go-through-profiles-in-browser');
+    Route::get('go-through-profiles-in-browser/{profileList}', GoThroughProfilesInBrowserController::class)->name('go-through-profiles-in-browser');
+    Route::get('go-through-search-profiles-in-browser/{searchResult}', GoThroughSearchProfilesInBrowserController::class)->name('go-through-search-profiles-in-browser');
 });
 
 Auth::routes();

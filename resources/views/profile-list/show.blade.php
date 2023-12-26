@@ -17,6 +17,9 @@
     $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                    <i class="fa fa-lg fa-fw fa-eye"></i>
                    </button>';
+    $goThroughProfilesInBrowser = '<button class="btn btn-xs btn-default text-orange mx-1 shadow" title="Go through the profiles in the browser">
+                   <i class="fab fa-lg fa-fw fa-chrome fa-spin"></i>
+                   </button>';
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
@@ -25,7 +28,7 @@
     ['label' => 'UserName','title' => 'UserName'],
     ['label' => 'IsVerified','title' => 'IsVerified'],
     ['label' => 'FullName','title' => 'FullName'],
-    ['label' => 'Biography','title' => 'Biography'],
+    ['label' => 'Biography','title' => 'Biography', 'width' => 40],
     ['label' => 'Followers','title' => 'Followers'],
     ['label' => 'Following','title' => 'Following'],
     ['label' => 'IsBusiness','title' => 'IsBusiness'],
@@ -44,6 +47,11 @@
                 <div class="card-body">
                     <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back"
                                        theme="primary" icon="fas fa-arrow-circle-left"/>
+                    <a href="{{ route('go-through-profiles-in-browser', $profileList->id) }}">
+                    <button class="btn btn-x btn-default text-purple shadow mt-n3" title="Go through the profiles in the browser">
+                        <i class="fab fa-lg fa-fw fa-chrome fa-spin"></i>
+                    </button>
+                    </a>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
                         @foreach($list as $listItem)
@@ -79,14 +87,18 @@
                                 </td>
                                 <td class="text-center">
                                     <nobr>
+                                        <a href="{{ route('go-through-profiles-in-browser', ['profileList' => $profileList->id, 'profileInfo' => $listItem->id]) }}">
+                                            {!! $goThroughProfilesInBrowser !!}
+                                        </a>
                                         <form method="POST"
-                                              action="{{ route('set-get-followers-task-for-list', $listItem->id) }}"
+                                              action="{{ route('set-get-followers-task-for-list', ['profileList' => $profileList->id, 'profileInfo' => $listItem->id]) }}"
                                               style="display:inline">
                                             @csrf
-                                            <x-adminlte-button type="{{ $listItem->isGetFollowersTaskCreated ? 'button' : 'submit' }}"
-                                                               class="btn-flat btn-sm {{$listItem->isGetFollowersTaskCreated ? 'disabled' : ''}}"
-                                                               label="GetFlws"
-                                                               theme="primary" icon="fas fa-arrow-circle-down"/>
+                                            <x-adminlte-button
+                                                type="{{ $listItem->isGetFollowersTaskCreated ? 'button' : 'submit' }}"
+                                                class="btn-flat btn-sm {{$listItem->isGetFollowersTaskCreated ? 'disabled' : ''}}"
+                                                label="GetFlws"
+                                                theme="primary" icon="fas fa-arrow-circle-down"/>
                                         </form>
 
                                         <a href="{{ route('profile-list.show-followers', $listItem->id) }}">

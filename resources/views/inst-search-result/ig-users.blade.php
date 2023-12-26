@@ -40,6 +40,11 @@
             <div class="card">
                 <div class="card-body">
                     <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
+                    <a href="{{ route('go-through-search-profiles-in-browser', $searchResult->id) }}">
+                        <button class="btn btn-x btn-default text-purple shadow mt-n3" title="Go through the profiles in the browser">
+                            <i class="fab fa-lg fa-fw fa-chrome fa-spin"></i>
+                        </button>
+                    </a>
                     <x-adminlte-datatable id="table" :heads="$heads" head-theme="light" theme="light" striped hoverable
                                           bordered :config="$config">
                         @foreach($users as $user)
@@ -81,7 +86,7 @@
                                         </a>
 
                                         <form method="POST"
-                                              action="{{ route('inst-search-result.delete', $user->id) }}"
+                                              action="{{ route('ig-user.delete', $user->id) }}"
                                               style="display:inline" class="has-confirm"
                                               data-message="Delete this record?">
                                             @csrf

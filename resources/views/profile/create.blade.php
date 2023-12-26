@@ -16,11 +16,11 @@
                 <x-adminlte-input name="phone_number" placeholder="Phone Number"
                                   value="{{ old('phone_number') }}"/>
                 <x-adminlte-input name="fullName" placeholder="FullName"
-                                  value="{{ old('fullName') }}"/>
+                                  value="{{ $randomFirstName }} {{$randomLastName}}"/>
                 <x-adminlte-input name="username" placeholder="Username"
-                                  value="{{ old('username') }}" class="text-bold"/>
+                                  value="{{ $randomUsername }}" class="text-bold"/>
                 <x-adminlte-input name="password" placeholder="Password"
-                                  value="{{ old('password') }}" class="text-bold"/>
+                                  value="{{ $generatedPassword }}" class="text-bold" />
                 <x-adminlte-input name="cookie" placeholder="Cookie" value="{{ old('cookie') }}"/>
                 <x-adminlte-input name="token" placeholder="Token" value="{{ old('token') }}"/>
                 <x-adminlte-input name="fb_dtsg" placeholder="FbDtsg" value="{{ old('fb_dtsg') }}"/>

@@ -9,11 +9,11 @@ use App\Models\Proxy;
 use App\Models\UserAgent;
 use File;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use JsonException;
 use Log;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 
 class ProfileController extends Controller
 {
@@ -22,21 +22,36 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::with('proxy')->paginate();
+        $profiles = Profile::with('proxy')->paginate(25);
         return view('profile.index', compact('profiles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $proxies = Proxy::doesntHave('profile')->get();
         $userAgents = UserAgent::all();
+        $generatedPassword = Str::random(12);
+        $faker = Faker::create();
+
+        $randomFirstName = $faker->firstName;
+        $randomLastName = $faker->lastName;
+        $nameLength = random_int(3, 5);
+        $randomUnderline = random_int(1, 2) === 1 ? "_" : "__";
+
+        $randomUsername = Str::lower(substr($randomFirstName, 0, $nameLength) . $randomUnderline . $randomLastName);
+
         foreach ($userAgents as $userAgent) {
             $userAgent->user_agent = str_replace("\n", '', $userAgent->user_agent);
         }
-        return view('profile.create', compact('proxies', 'userAgents'));
+        return view('profile.create', compact(
+                'proxies',
+                'userAgents',
+                'generatedPassword',
+                'randomFirstName',
+                'randomLastName',
+                'randomUsername'
+            )
+        );
     }
 
     /**
@@ -102,7 +117,8 @@ class ProfileController extends Controller
     public function edit(Profile $profile)
     {
 
-        $proxies = Proxy::all();
+//        $proxies = Proxy::all();
+        $proxies = Proxy::doesntHave('profile')->get();
         $userAgents = UserAgent::all();
         foreach ($userAgents as $userAgent) {
             $userAgent->user_agent = str_replace("\n", '', $userAgent->user_agent);
