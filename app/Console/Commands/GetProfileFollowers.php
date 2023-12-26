@@ -2,15 +2,26 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\OpenInBrowserGetProfileFollowersTaskController;
 use App\Models\GetFollowersTask;
 use App\Models\Profile;
+use App\Models\ProfileInfo;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use JsonException;
 use App\Http\Requests\GetCurlRequests\ProfileFollowers as ProfileFollowersRequest;
+use Log;
 
 class GetProfileFollowers extends Command
 {
+    private $openInBrowser;
+
+    public function __construct(OpenInBrowserGetProfileFollowersTaskController $openInBrowser)
+    {
+        parent::__construct();
+        $this->openInBrowser = $openInBrowser;
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -37,6 +48,18 @@ class GetProfileFollowers extends Command
             $taskStartedAt = Carbon::now()->format('Y-m-d H:i:s');
             $profileIdToGetFollowers = $this->getProfileToGetFollowers($task);
             $personalProfile = $this->getPersonalProfile($task);
+            // TODO: add to settings (or work_akk from task or random)
+            $randomPersonalProfile = Profile::with('proxy')->inRandomOrder()->first();
+            $profileUserNameToGetFollowers = ProfileInfo::where('inst_id', $profileIdToGetFollowers)->first()->username;
+            $this->info(json_encode([
+                'profileUserNameToGetFollowers' => $profileUserNameToGetFollowers,
+                'randomPersonalProfile' => $randomPersonalProfile?->username
+            ], JSON_THROW_ON_ERROR));
+            Log::info(json_encode([
+                'profileUserNameToGetFollowers' => $profileUserNameToGetFollowers,
+                'randomPersonalProfile' => $randomPersonalProfile?->username
+            ], JSON_THROW_ON_ERROR));
+            $this->openInBrowser->__invoke($randomPersonalProfile, $profileUserNameToGetFollowers);
             $profileFollowers->getProfileFollowers($profileIdToGetFollowers, $task, $personalProfile);
             $taskStopedAt = Carbon::now()->format('Y-m-d H:i:s');
             $task->task_started_at = $taskStartedAt;
