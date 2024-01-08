@@ -2,7 +2,7 @@ name: Deploy IB Application
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   create-deployment-artifacts:
