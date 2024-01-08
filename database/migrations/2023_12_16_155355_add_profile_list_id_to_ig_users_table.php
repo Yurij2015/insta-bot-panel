@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ig_users', static function (Blueprint $table) {
-             $table->foreignId('profile_list_id')->nullable()->references('id')->on('pfofile_lists');
+             $table->foreignId('profile_list_id')->nullable()->references('id')->on('profile_lists');
         });
     }
 
