@@ -4,6 +4,7 @@ namespace App\Http\Requests\GetCurlRequests;
 
 use App\Models\PersonalProfileData;
 use App\Models\Profile;
+use App\Models\ProfileFollowersWebProfileInfo;
 use App\Models\ProfileInfo;
 use App\Models\ProfileList;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,7 @@ use JsonException;
 
 class WebProfileInfo
 {
+    public const X_IG_APP_ID = '936619743392459';
     /**
      * @throws JsonException
      */
@@ -33,7 +35,7 @@ class WebProfileInfo
             CURLOPT_HTTPHEADER => array(
                 "cookie: $profile->cookie",
                 "user-agent: $profile->user_agent",
-                'x-ig-app-id: 936619743392459'
+                'x-ig-app-id: ' . self::X_IG_APP_ID
             ),
         ));
 
@@ -70,7 +72,7 @@ class WebProfileInfo
             CURLOPT_HTTPHEADER => array(
                 "cookie: $profile->cookie",
                 "user-agent: $profile->user_agent",
-                'x-ig-app-id: 936619743392459'
+                'x-ig-app-id: ' . self::X_IG_APP_ID
             ),
         ));
 
@@ -78,6 +80,36 @@ class WebProfileInfo
         curl_close($curl);
 
         $this->saveProfilesFromListInfo($response, $profileListId);
+        return json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function getProfileFollowersWebProfileInfo(Profile $profile, $username): bool|\stdClass
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://www.instagram.com/api/v1/users/web_profile_info/?username=$username",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_PROXY => $profile->proxy->proxy . ':' . $profile->proxy->port,
+            CURLOPT_PROXYUSERPWD => $profile->proxy->login . ':' . $profile->proxy->password,
+            CURLOPT_HTTPHEADER => array(
+                "cookie: $profile->cookie",
+                "user-agent: $profile->user_agent",
+                'x-ig-app-id: ' . self::X_IG_APP_ID
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $this->saveProfileFollowersProfileInfos($response);
         return json_decode($response, false, 512, JSON_THROW_ON_ERROR);
     }
 
@@ -122,6 +154,22 @@ class WebProfileInfo
             $responseData = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
             $profile = $responseData->data->user;
             ProfileInfo::updateOrCreate(
+                [
+                    'inst_id' => $profile->id,
+                ],
+                $this->paramsArray($profile)
+            );
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
+    }
+
+    private function saveProfileFollowersProfileInfos($response): void
+    {
+        try {
+            $responseData = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+            $profile = $responseData->data->user;
+            ProfileFollowersWebProfileInfo::updateOrCreate(
                 [
                     'inst_id' => $profile->id,
                 ],

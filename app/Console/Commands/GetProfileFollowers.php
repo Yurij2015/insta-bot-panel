@@ -42,6 +42,9 @@ class GetProfileFollowers extends Command
      */
     public function handle(ProfileFollowersRequest $profileFollowers): void
     {
+        $mainPause = static function () {
+            return random_int(9000000, 15000000);
+        };
         $getFollowersTask = GetFollowersTask::where('status', 'active')
             ->whereNotNull('search_result_id')->inRandomOrder()->get();
         foreach ($getFollowersTask as $task) {
@@ -49,7 +52,9 @@ class GetProfileFollowers extends Command
             $profileIdToGetFollowers = $this->getProfileToGetFollowers($task);
             $personalProfile = $this->getPersonalProfile($task);
             // TODO: add to settings (or work_akk from task or random)
-            $randomPersonalProfile = Profile::with('proxy')->inRandomOrder()->first();
+            $randomPersonalProfile = Profile::with('proxy')
+                ->where('status', 'active_web')
+                ->inRandomOrder()->first();
             $profileUserNameToGetFollowers = ProfileInfo::where('inst_id', $profileIdToGetFollowers)->first()->username;
             $this->info(json_encode([
                 'profileUserNameToGetFollowers' => $profileUserNameToGetFollowers,
@@ -67,6 +72,10 @@ class GetProfileFollowers extends Command
             $task->status = 'completed';
             $task->task_status = 'completed';
             $task->save();
+            $cyclePause = $mainPause();
+            Log::info("Main pause activated - " . $cyclePause);
+            $this->info("Main pause activated - " . $cyclePause);
+            usleep($cyclePause);
         }
     }
 

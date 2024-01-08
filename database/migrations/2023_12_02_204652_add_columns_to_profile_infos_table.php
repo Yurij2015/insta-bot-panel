@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('profile_infos', static function (Blueprint $table) {
             $table->json('edge_felix_combined_post_uploads')->nullable()->after('pronouns');
-            $table->json('edge_felix_combined_draft_uploads')->nullable()->after('pronouns');;
+            $table->json('edge_felix_combined_draft_uploads')->nullable()->after('pronouns');
             $table->json('edge_felix_drafts')->nullable()->after('pronouns');
-            $table->json('edge_felix_pending_post_uploads')->nullable()->after('pronouns');;
-            $table->json('edge_felix_pending_draft_uploads')->nullable()->after('pronouns');;
+            $table->json('edge_felix_pending_post_uploads')->nullable()->after('pronouns');
+            $table->json('edge_felix_pending_draft_uploads')->nullable()->after('pronouns');
         });
     }
 
