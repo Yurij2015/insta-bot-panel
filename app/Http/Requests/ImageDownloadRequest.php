@@ -52,7 +52,13 @@ class ImageDownloadRequest
 
         try {
             $imageContent = file_get_contents($profilePicUrl, false, $context);
-            Storage::disk('public')->put('profiles/images' . '/' . $imageName, $imageContent);
+            $imagePath = 'profiles/images/' . $imageName;
+
+            if (Storage::disk('public')->put($imagePath, $imageContent)) {
+                Log::error("File saved at: " . Storage::disk('public')->url($imagePath));
+            } else {
+                Log::error("Failed to save the file. " . $imagePath);
+            }
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
