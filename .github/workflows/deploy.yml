@@ -106,6 +106,12 @@ jobs:
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,STORAGE_PATH,BASE_PATH
           script: |
+            if [ -e "${BASE_PATH}/.env" ]; then
+            cp "${BASE_PATH}/.env" "${BASE_PATH}/.env_prev"
+            echo "Previous .env file saved."
+            else
+            echo "No .env file found for backup."
+            fi
             ${{ matrix.server.beforeHooks }}
 
   activate-release:
@@ -132,6 +138,13 @@ jobs:
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,STORAGE_PATH,BASE_PATH,ENV_PATH,LARAVEL_ENV
           script: |
+            # Restore the previous .env file
+            if [ -e "${BASE_PATH}/.env_prev" ]; then
+            cp "${BASE_PATH}/.env_prev" "${BASE_PATH}/.env"
+            echo "Restored .env file from backup."
+            else
+            echo "No .env backup found."
+            fi
             printf "%s" "$LARAVEL_ENV" > "${BASE_PATH}/.env"
             ln -s -f ${BASE_PATH}/.env $RELEASE_PATH
             ln -s -f $STORAGE_PATH $RELEASE_PATH
