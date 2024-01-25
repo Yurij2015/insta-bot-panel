@@ -25,5 +25,6 @@ return [
     'tasks' => 'TASKS',
     'profile_lists' => 'IG PROFILE LISTS',
     'add_profiles_list' => 'ADD IG PROFILES LIST',
-    'get_profiles_data_from_list' => 'GET ACCSDATA FROM LIST'
+    'get_profiles_data_from_list' => 'GET ACCSDATA FROM LIST',
+    'settings' => 'SETTINGS',
 ];
