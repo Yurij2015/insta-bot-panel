@@ -356,6 +356,13 @@ return [
             'icon'    => 'fas fa-fw fa-square-full',
             'url'        => 'get-profiles-data-from-list',
         ],
+        ['header' => 'settings'],
+        [
+            'text'       => 'settings',
+            'icon_color' => 'tael',
+            'icon'    => 'fas fa-fw fa-cog',
+            'url'        => 'settings-index',
+        ],
     ],
 
     /*
