@@ -102,11 +102,11 @@
                                 </td>
                                 <td>{{ $listItem->start_cron_task_time }}</td>
                                 <td>{{ $listItem->task_status ? 'active' : 'no active' }}</td>
-                                <td>{{ $listItem->current_task }}</td>
+                                <td class="nowrap-text">{{ $listItem->current_task }}</td>
                                 <td>{{ $listItem->current_profile }}</td>
                                 <td>
                                     @foreach($listItem->task_types_for_profiles as $type)
-                                        <div>{{ $type }}</div>
+                                        <div class="nowrap-text">{{ $type }}</div>
                                     @endforeach
                                 </td>
                                 <td>{{ $listItem->settings_status ? 'active' : 'no active' }}</td>
@@ -212,6 +212,10 @@
 
         th::first-letter {
             /*text-transform: uppercase;*/
+        }
+
+        .nowrap-text{
+            white-space: nowrap;
         }
 
     </style>
