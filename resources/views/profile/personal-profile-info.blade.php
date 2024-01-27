@@ -58,8 +58,11 @@
                         </tr>
                         <tr>
                             <th>Profile Img</th>
-                            <td colspan="2">
+                            <td>
                                 <img src="{{ asset("uploads/profiles/images/$personalProfileData->username" . ".jpg") }}">
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary nowrap-text" href="{{ route('personal-profile-remove-img', $personalProfileData->id) }}">Update img</a>
                             </td>
                         </tr>
                         <tr>
@@ -162,6 +165,10 @@
 @stop
 <style>
     .no-wrap-th {
+        white-space: nowrap;
+    }
+
+    .nowrap-text{
         white-space: nowrap;
     }
 </style>

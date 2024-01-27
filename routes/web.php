@@ -33,6 +33,7 @@ Route::get('/', static function () {
 Route::middleware('auth')->group(function () {
     Route::resource('profiles', ProfileController::class);
     Route::get('/personal-profile-info/{profile}', [ProfileController::class, 'personalProfileInfo'])->name('personal-profile-info');
+    Route::get('/personal-profile-remove-img/{profile}', [ProfileController::class, 'personalProfileRemoveImg'])->name('personal-profile-remove-img');
     Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
     Route::controller(InstSearchController::class)->group(function () {
         Route::get('/inst-search', 'index')->name('inst-search');
