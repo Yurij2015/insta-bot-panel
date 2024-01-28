@@ -230,7 +230,8 @@
                         <x-adminlte-input name="upper_limit_likes_for_profile"
                                           placeholder="Upper timeout limit for likes for profile"
                                           label="Upper timeout limit for likes for profile"
-                                          value="{{ old('upper_limit_likes_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_likes_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -253,7 +254,8 @@
                         <x-adminlte-input name="upper_limit_likes_for_profile"
                                           placeholder="Upper likes limit for for profile"
                                           label="Upper likes limit for for profile"
-                                          value="{{ old('upper_limit_likes_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_likes_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -276,7 +278,8 @@
                         <x-adminlte-input name="upper_limit_unfollows_for_profile"
                                           placeholder="Upper unfollows limit for profile"
                                           label="Upper unfollows limit for profile"
-                                          value="{{ old('upper_limit_unfollows_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_unfollows_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -299,7 +302,8 @@
                         <x-adminlte-input name="upper_limit_comments_for_profile"
                                           placeholder="Upper comments limit for profile"
                                           label="Upper comments limit for profile"
-                                          value="{{ old('upper_limit_comments_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_comments_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -322,7 +326,8 @@
                         <x-adminlte-input name="upper_limit_follows_for_profile"
                                           placeholder="Upper follows limit for profile"
                                           label="Upper follows limit for profile"
-                                          value="{{ old('upper_limit_follows_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_follows_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -347,7 +352,8 @@
                         <x-adminlte-input name="upper_limit_followings_for_profile"
                                           placeholder="Upper followings limit for profile"
                                           label="Upper followings limit for profile"
-                                          value="{{ old('upper_limit_followings_for_profile') ?: random_int(20,30) }}" type="number"
+                                          value="{{ old('upper_limit_followings_for_profile') ?: random_int(20,30) }}"
+                                          type="number"
                                           igroup-size="sm" min=20 max=100>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-indigo">
@@ -427,7 +433,9 @@
                             <option value="like">like</option>
                             <option value="follow">follow</option>
                             <option value="unfollow">unfollow</option>
-                            <option value="parsing">parsing</option>
+                            @foreach($parsersList as $parserType)
+                                <option value="{{ $parserType }}">{{ $parserType }}</option>
+                            @endforeach
                         </x-adminlte-select>
                         <x-adminlte-select name="settings_status" label="Settings status" igroup-size="sm">
                             <x-slot name="prependSlot">

@@ -9,6 +9,14 @@ use Illuminate\Http\RedirectResponse;
 
 class SettingsController extends Controller
 {
+    public const PARSERS_LIST = [
+        'parsing-list-profile-followers',
+        'parsing-profile-followers',
+        'parsing-profile-followers-web-profiles-info',
+        'parsing-profiles-data-from-lists-tasks',
+        'parsing-web-profile-info',
+    ];
+
     public function index()
     {
         $profiles = Profile::get()->where('status', 'active_web');
@@ -19,7 +27,8 @@ class SettingsController extends Controller
     public function create()
     {
         $profiles = Profile::get()->where('status', 'active_web');
-        return view('settings.create', compact('profiles'));
+        $parsersList = self::PARSERS_LIST;
+        return view('settings.create', compact('profiles', 'parsersList'));
     }
 
     public function store(SettingsSaveRequest $saveRequest, Settings $settings): RedirectResponse
@@ -33,7 +42,8 @@ class SettingsController extends Controller
     public function edit(Settings $settinsItem)
     {
         $profiles = Profile::get()->where('status', 'active_web');
-        return view('settings.edit', compact('settinsItem', 'profiles'));
+        $parsersList = self::PARSERS_LIST;
+        return view('settings.edit', compact('settinsItem', 'profiles', 'parsersList'));
     }
 
     public function update(SettingsSaveRequest $saveRequest, Settings $settingsItem): RedirectResponse

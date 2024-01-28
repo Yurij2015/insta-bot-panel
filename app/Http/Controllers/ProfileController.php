@@ -110,6 +110,14 @@ class ProfileController extends Controller
         return view('profile.personal-profile-info', compact('personalProfileData'));
     }
 
+    public function personalProfileRemoveImg(Profile $profile): RedirectResponse
+    {
+        $fileExist = File::exists(public_path("uploads/profiles/images/$profile->username" . ".jpg"));
+        if ($fileExist) {
+            File::delete(public_path("uploads/profiles/images/$profile->username" . ".jpg"));
+        }
+        return redirect()->route('personal-profile-info', $profile->id);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -117,7 +125,6 @@ class ProfileController extends Controller
     public function edit(Profile $profile)
     {
 
-//        $proxies = Proxy::all();
         $proxies = Proxy::doesntHave('profile')->get();
         $userAgents = UserAgent::all();
         foreach ($userAgents as $userAgent) {

@@ -45,6 +45,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-default-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back"
                                        theme="primary" icon="fas fa-arrow-circle-left"/>
                     <a href="{{ route('go-through-profiles-in-browser', $profileList->id) }}">
@@ -105,7 +121,10 @@
                                             <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info"
                                                                icon="fas fa-eye"/>
                                         </a>
-
+                                        <a href="{{ route('profile-list-update-web-profile-info', $listItem->id) }}">
+                                            <x-adminlte-button class="btn-flat btn-sm" label="UpdData" theme="success"
+                                                               icon="fas fa-sync"/>
+                                        </a>
                                         <form method="POST"
                                               action="{{ route('inst-search-result.delete', $listItem->id) }}"
                                               style="display:inline" class="has-confirm"

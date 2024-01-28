@@ -33,6 +33,7 @@ Route::get('/', static function () {
 Route::middleware('auth')->group(function () {
     Route::resource('profiles', ProfileController::class);
     Route::get('/personal-profile-info/{profile}', [ProfileController::class, 'personalProfileInfo'])->name('personal-profile-info');
+    Route::get('/personal-profile-remove-img/{profile}', [ProfileController::class, 'personalProfileRemoveImg'])->name('personal-profile-remove-img');
     Route::get('/inst-profile-info', [InstProfileInfoController::class, 'index'])->name('inst-profile-info');
     Route::controller(InstSearchController::class)->group(function () {
         Route::get('/inst-search', 'index')->name('inst-search');
@@ -47,6 +48,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/ig-user/delete/{igUser}', 'igUserDelete')->name('ig-user.delete');
         Route::get('/proxy-image/{url}', 'proxyImage')->name('proxy-image')->where('url', '.*');
         Route::post('/ig-users.set-get-full-data-task/{searchResult}', 'setGetFullDataTask')->name('ig-users.set-get-full-data-task');
+        Route::get('/ig-users-update-images/{searchResult}', 'igUsersUpdateImages')->name('ig-users-update-images');
+        Route::get('/ig-users-update-web-profile-info/{igUser}', 'igUsersUpdateWebProfileInfo')->name('ig-users-update-web-profile-info');
     });
     Route::controller(InstProfileFollowersController::class)->group(function () {
         Route::post('/ig-user.set-get-followers-task-for-search/{igUser}', 'setGetFollowersTaskForSearch')->name('ig-user.set-get-followers-task-for-search');
@@ -67,6 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('show-list-item-profiles/{profileList}', 'showListItemProfiles')->name('show-list-item-profiles');
         Route::get('profile-list.show-followers/{profileInfo}', 'showProfileFollowers')->name('profile-list.show-followers');
         Route::delete('profile-lists/delete/{profileList}', 'deleteProfileList')->name('profile-lists.delete');
+        Route::get('/profile-list-update-web-profile-info/{profileInfo}', 'listItemProfileUpdateWebProfileInfo')->name('profile-list-update-web-profile-info');
     });
     Route::get('get-profiles-data-from-list', [GetProfilesDataFromListController::class, 'index'])->name('get-followers-tasks');
     Route::get('go-through-profiles-in-browser/{profileList}/{profileInfo}', GoThroughProfilesInBrowserController::class)->name('go-through-profiles-in-browser');

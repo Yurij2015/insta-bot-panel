@@ -426,7 +426,9 @@
                             <option value="like" {{ in_array('like', $settinsItem->task_types_for_profiles, true) ? 'selected' : '' }}>like</option>
                             <option value="follow" {{ in_array('follow', $settinsItem->task_types_for_profiles, true) ? 'selected' : '' }}>follow</option>
                             <option value="unfollow" {{ in_array('unfollow', $settinsItem->task_types_for_profiles, true) ? 'selected' : '' }}>unfollow</option>
-                            <option value="parsing" {{ in_array('parsing', $settinsItem->task_types_for_profiles, true) ? 'selected' : '' }}>parsing</option>
+                            @foreach($parsersList as $parserType)
+                                <option value="{{ $parserType }}" {{ in_array($parserType, $settinsItem->task_types_for_profiles, true) ? 'selected' : '' }}>{{ $parserType }}</option>
+                            @endforeach
                         </x-adminlte-select>
                         <x-adminlte-select name="settings_status" label="Settings status" igroup-size="sm">
                             <x-slot name="prependSlot">

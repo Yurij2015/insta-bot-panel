@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetCurlRequests\WebProfileInfo;
 use App\Http\Requests\GetProfilesFromListsTaskSaveRequest;
 use App\Http\Requests\ImageDownloadRequest;
 use App\Http\Requests\ProfileListsSaveRequest;
 use App\Models\GetFollowersTask;
 use App\Models\GetProfilesDataFromListTask;
+use App\Models\IgUser;
 use App\Models\Profile;
 use App\Models\ProfileInfo;
 use App\Models\ProfileList;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\File;
+use Log;
 
 class ProfileListController extends Controller
 {
@@ -97,6 +101,18 @@ class ProfileListController extends Controller
         });
 
         return view('profile-list.show', compact('list', 'profileList'));
+    }
+
+    public function listItemProfileUpdateWebProfileInfo(ProfileInfo $profileInfo, WebProfileInfo $webProfileInfo): RedirectResponse
+    {
+        $personalProfile = Profile::with('proxy')->where('status', 'active_web')->inRandomOrder()->first();
+
+        try {
+            $webProfileInfo->getWebProfileInfo($personalProfile, $profileInfo->username);
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+        }
+        return redirect()->back()->with('success', "Web profile $profileInfo->username info updated!");
     }
 
     public function showProfileFollowers(ProfileInfo $profileInfo)

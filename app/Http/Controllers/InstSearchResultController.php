@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetCurlRequests\WebProfileInfo;
 use App\Http\Requests\ImageDownloadRequest;
 use App\Models\GetFollowersTask;
 use App\Models\GetFullIgUsersDataTask;
 use App\Models\IgHashtag;
 use App\Models\IgPlace;
 use App\Models\IgUser;
+use App\Models\Profile;
 use App\Models\SearchResult;
+use App\Models\Settings;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\File;
 use Log;
@@ -55,6 +59,30 @@ class InstSearchResultController extends Controller
 
         $isFullIgUsersDataTaskCreated = GetFullIgUsersDataTask::where('search_result_id', $searchResult->id)->first();
         return view('inst-search-result.ig-users', compact('users', 'searchResult', 'isFullIgUsersDataTaskCreated'));
+    }
+
+    public function igUsersUpdateImages(SearchResult $searchResult, ImageDownloadRequest $imgDownload): RedirectResponse
+    {
+        $users = IgUser::with('profileInfo')->where('search_result_id', $searchResult->id)->get();
+        foreach ($users as $user) {
+            $fileExist = File::exists(public_path("uploads/profiles/images/$user->username" . ".jpg"));
+            if ($fileExist) {
+                File::delete(public_path("uploads/profiles/images/$user->username" . ".jpg"));
+            }
+        }
+        return redirect()->back()->with('success', 'Images updated!');
+    }
+
+    public function igUsersUpdateWebProfileInfo(IgUser $igUser, WebProfileInfo $webProfileInfo): RedirectResponse
+    {
+        $profile = Profile::with('proxy')->where('status', 'active_web')->inRandomOrder()->first();
+
+        try {
+            $webProfileInfo->getWebProfileInfo($profile, $igUser->username);
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+        }
+        return redirect()->back()->with('success', "Web profile $igUser->username info updated!");
     }
 
     public function setGetFullDataTask(SearchResult $searchResult): RedirectResponse
