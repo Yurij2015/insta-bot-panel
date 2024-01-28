@@ -16,7 +16,7 @@ return [
     'important' => 'Important',
     'warning' => 'Warning',
     'information' => 'Information',
-    'profiles' => 'Profiles',
+    'profiles' => 'PROFILES',
     'menu' => 'MAIN MENU',
     'search' => 'SEARCH',
     'search_result' => 'SEARCH RESULT',
@@ -27,4 +27,6 @@ return [
     'add_profiles_list' => 'ADD IG PROFILES LIST',
     'get_profiles_data_from_list' => 'GET ACCSDATA FROM LIST',
     'settings' => 'SETTINGS',
+    'ig_users' => 'SAVED IG USERS',
+    'search and filter' => 'SEARCH AND FILTER',
 ];
