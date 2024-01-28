@@ -19,6 +19,9 @@
                                    theme="primary"
                 />
             </form>
+            <a class="btn btn-success float-right btn-sm mr-2" href="{{ route('ig-users-update-images', $searchResult->id) }}">
+                Update images
+            </a>
         </div>
     </div>
 @stop
@@ -39,9 +42,27 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back" theme="primary" icon="fas fa-arrow-circle-left"/>
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-default-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    <x-adminlte-button id="backButton" class="btn-flat btn-sm mb-3" type="submit" label="Back"
+                                       theme="primary" icon="fas fa-arrow-circle-left"/>
                     <a href="{{ route('go-through-search-profiles-in-browser', $searchResult->id) }}">
-                        <button class="btn btn-x btn-default text-purple shadow mt-n3" title="Go through the profiles in the browser">
+                        <button class="btn btn-x btn-default text-purple shadow mt-n3"
+                                title="Go through the profiles in the browser">
                             <i class="fab fa-lg fa-fw fa-chrome fa-spin"></i>
                         </button>
                     </a>
@@ -57,7 +78,7 @@
                                 </td>
                                 <td>{{ $user->is_verified }}</td>
                                 <td>{{ $user->full_name }}</td>
-                                <td>{{ $user->profileInfo?->biography }}</td>
+                                <td style="width: 300px">{{ $user->profileInfo?->biography }}</td>
                                 <td>{{ $user->profileInfo?->edge_followed_by['count'] }}</td>
                                 <td>{{ $user->profileInfo?->edge_follow['count'] }}</td>
                                 <td>{{ $user->profileInfo?->is_business_account ? 'true' : 'false' }}</td>
@@ -76,7 +97,9 @@
                                               action="{{ route('ig-user.set-get-followers-task-for-search', $user->id) }}"
                                               style="display:inline">
                                             @csrf
-                                            <x-adminlte-button type="submit" class="btn-flat btn-sm {{$user->isGetFollowersTaskCreated ? 'disabled' : ''}}" label="GetFlws"
+                                            <x-adminlte-button type="submit"
+                                                               class="btn-flat btn-sm {{$user->isGetFollowersTaskCreated ? 'disabled' : ''}}"
+                                                               label="GetFlws"
                                                                theme="primary" icon="fas fa-arrow-circle-down"/>
                                         </form>
 
@@ -84,7 +107,10 @@
                                             <x-adminlte-button class="btn-flat btn-sm" label="ShowFlws" theme="info"
                                                                icon="fas fa-eye"/>
                                         </a>
-
+                                        <a href="{{ route('ig-users-update-web-profile-info', $user->id) }}">
+                                            <x-adminlte-button class="btn-flat btn-sm" label="UpdData" theme="success"
+                                                               icon="fas fa-sync"/>
+                                        </a>
                                         <form method="POST"
                                               action="{{ route('ig-user.delete', $user->id) }}"
                                               style="display:inline" class="has-confirm"
@@ -107,7 +133,7 @@
 @section('js')
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
-        document.getElementById('backButton').addEventListener('click', function() {
+        document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
         $("form.has-confirm").submit(function (e) {

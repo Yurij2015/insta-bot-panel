@@ -55,7 +55,7 @@ class ImageDownloadRequest
             $imagePath = 'profiles/images/' . $imageName;
 
             if (Storage::disk('public')->put($imagePath, $imageContent)) {
-                Log::error("File saved at: " . Storage::disk('public')->url($imagePath));
+                Log::info("File saved at: " . Storage::disk('public')->url($imagePath));
             } else {
                 Log::error("Failed to save the file. " . $imagePath);
             }
