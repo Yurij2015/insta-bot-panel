@@ -363,6 +363,13 @@ return [
             'icon'    => 'fas fa-fw fa-cog',
             'url'        => 'settings-index',
         ],
+        ['header' => 'ig_users'],
+        [
+            'text'       => 'search and filter',
+            'icon_color' => 'tael',
+            'icon'    => 'fas fa-fw fa-filter',
+            'url'        => 'ig-users-search-and-filter',
+        ],
     ],
 
     /*

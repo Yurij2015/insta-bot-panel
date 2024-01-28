@@ -7,6 +7,7 @@ use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\GetProfilesDataFromListController;
 use App\Http\Controllers\GoThroughProfilesInBrowserController;
 use App\Http\Controllers\GoThroughSearchProfilesInBrowserController;
+use App\Http\Controllers\IgSavedUsersSearchAndFilterController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
 use App\Http\Controllers\OpenInBrowserController;
@@ -82,6 +83,10 @@ Route::middleware('auth')->group(function () {
         Route::post('settings-save', 'store')->name('settings-save');
         Route::get('settings-item-edit/{settinsItem}', 'edit')->name('settings-item-edit');
         Route::put('settings-item-update/{settingsItem}', 'update')->name('settings-item-update');
+    });
+    Route::controller(IgSavedUsersSearchAndFilterController::class)->group(function () {
+        Route::get('ig-users-search-and-filter', 'index')->name('ig-users-search-and-filter');
+        Route::post('ig-saved-users-search-and-filter', 'search')->name('ig-saved-users-search-and-filter');
     });
 });
 
