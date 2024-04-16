@@ -14,6 +14,8 @@ use App\Http\Controllers\OpenInBrowserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileListController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Resources\ProfileCollection;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,6 +90,10 @@ Route::middleware('auth')->group(function () {
         Route::get('ig-users-search-and-filter', 'index')->name('ig-users-search-and-filter');
         Route::post('ig-saved-users-search-and-filter', 'search')->name('ig-saved-users-search-and-filter');
     });
+});
+
+Route::get('/api/profiles', static function () {
+    return new ProfileCollection(Profile::with('proxy')->get());
 });
 
 Auth::routes();
