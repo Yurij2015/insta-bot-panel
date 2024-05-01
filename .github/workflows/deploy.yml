@@ -11,8 +11,7 @@ jobs:
     outputs:
       DEPLOYMENT_MATRIX: ${{ steps.export-deployment-matrix.outputs.DEPLOYMENT_MATRIX }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: nanasess/setup-php@v4
+      - uses: actions/checkout@v4
       - name: Composer install
         run: |
           composer install --no-dev --no-interaction --prefer-dist
