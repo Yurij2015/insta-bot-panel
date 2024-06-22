@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Walker\TasksController;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\ProfileCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/profiles', static function () {
+    return new ProfileCollection(Profile::with('proxy')->get());
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('walker-tasks', [TasksController::class, 'walkerTasks'])->name('walker-tasks');
+});
+
+Route::post('/tokens/create', static function () {
+    $user = App\Models\User::find(1);
+    $token = $user->createToken('Token');
+    return ['token' => $token->plainTextToken];
 });
