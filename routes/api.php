@@ -28,9 +28,3 @@ Route::get('/profiles', static function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('walker-tasks', [TasksController::class, 'walkerTasks'])->name('walker-tasks');
 });
-
-Route::post('/tokens/create', static function () {
-    $user = App\Models\User::find(1);
-    $token = $user->createToken('Token');
-    return ['token' => $token->plainTextToken];
-});

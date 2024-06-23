@@ -14,6 +14,7 @@ use App\Http\Controllers\OpenInBrowserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileListController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +88,10 @@ Route::middleware('auth')->group(function () {
     Route::controller(IgSavedUsersSearchAndFilterController::class)->group(function () {
         Route::get('ig-users-search-and-filter', 'index')->name('ig-users-search-and-filter');
         Route::post('ig-saved-users-search-and-filter', 'search')->name('ig-saved-users-search-and-filter');
+    });
+    Route::controller(UserSettingsController::class)->group(function () {
+        Route::get('user-settings', 'index')->name('user-settings');
+        Route::get('generate-token', 'generateToken')->name('generate-token');
     });
 });
 

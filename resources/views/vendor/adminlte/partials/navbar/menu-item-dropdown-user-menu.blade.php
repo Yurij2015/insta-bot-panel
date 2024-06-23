@@ -68,6 +68,11 @@
                     {{ __('adminlte::menu.profile') }}
                 </a>
             @endif
+                <a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
+                   href={{ route('user-settings') }}>
+                    <i class="fa fa-fw fa-user text-blue"></i>
+                    {{ __('adminlte::adminlte.account_settings') }}
+                </a>
             <a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
                href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-fw fa-power-off text-red"></i>
