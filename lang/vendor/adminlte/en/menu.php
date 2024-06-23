@@ -29,4 +29,5 @@ return [
     'settings' => 'SETTINGS',
     'ig_users' => 'SAVED IG USERS',
     'search and filter' => 'SEARCH AND FILTER',
+    'desktop_tasks' => 'DESKTOP TASKS',
 ];
