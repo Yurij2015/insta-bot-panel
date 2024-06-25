@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\InstProfileFollowersController;
 use App\Http\Controllers\Api\InstProfileInfoController;
+use App\Http\Controllers\Desktop\IgTasks\WalkingController;
 use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\GetProfilesDataFromListController;
@@ -93,6 +94,7 @@ Route::middleware('auth')->group(function () {
         Route::get('user-settings', 'index')->name('user-settings');
         Route::get('generate-token', 'generateToken')->name('generate-token');
     });
+    Route::resource('walking-tasks', WalkingController::class);
 });
 
 Auth::routes();

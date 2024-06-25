@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Walker\HistoryController;
 use App\Http\Controllers\Api\Walker\TasksController;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -27,4 +28,5 @@ Route::get('/profiles', static function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('walker-tasks', [TasksController::class, 'walkerTasks'])->name('walker-tasks');
+    Route::post('walker-tasks-history', [HistoryController::class, 'walkerTasksHistory'])->name('walker-tasks-history');
 });
