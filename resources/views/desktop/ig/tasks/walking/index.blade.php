@@ -50,18 +50,20 @@
                         <td>{{ $task->started_at }}</td>
                         <td>{{ $task->completed_at }}</td>
                         <td style="width: 100px">
-                            <a href="{{ route('walking-tasks.edit', $task->id) }}"
-                               class="btn btn-primary btn-flat btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
-                                  class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-flat btn-sm" type="submit">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            @if($task->status === 'pending')
+                                <a href="{{ route('walking-tasks.edit', $task->id) }}"
+                                   class="btn btn-primary btn-flat btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
+                                      class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger btn-flat btn-sm" type="submit">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @endif
+                                </form>
                         </td>
                     </tr>
                 @endforeach

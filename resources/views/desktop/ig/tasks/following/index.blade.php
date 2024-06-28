@@ -20,7 +20,7 @@
             <h3 class="card-title">Walking Tasks</h3>
         </div>
         <div class="card-body">
-            <table class="table table-bordered  table-responsive">
+            <table class="table table-bordered  table-striped table-responsive">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -84,18 +84,20 @@
                         <td>{{ $task->started_at }}</td>
                         <td>{{ $task->completed_at }}</td>
                         <td>
-                            <a href="{{ route('walking-tasks.edit', $task->id) }}"
-                               class="btn btn-primary btn-flat btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
-                                  class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-flat btn-sm" type="submit">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            @if($task->status === 'pending')
+                                <a href="{{ route('walking-tasks.edit', $task->id) }}"
+                                   class="btn btn-primary btn-flat btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
+                                      class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger btn-flat btn-sm" type="submit">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @endif
+                                </form>
                         </td>
                     </tr>
                 @endforeach
@@ -108,5 +110,4 @@
     .white-space-nowrap {
         white-space: nowrap;
     }
-
 </style>
