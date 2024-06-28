@@ -378,16 +378,16 @@ return [
             'url'        => 'walking-tasks',
         ],
         [
+            'text'       => 'Following',
+            'icon_color' => 'lightblue',
+            'icon'    => 'fas fa-fw fa-user-plus',
+            'url'        => 'following-tasks',
+        ],
+        [
             'text'       => 'Liking',
             'icon_color' => 'red',
             'icon'    => 'fas fa-fw fa-heart',
             'url'        => '#',
-        ],
-        [
-            'text'       => 'Following',
-            'icon_color' => 'lightblue',
-            'icon'    => 'fas fa-fw fa-user-plus',
-            'url'        => '#r',
         ],
         [
             'text'       => 'Commenting',

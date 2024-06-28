@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TaskStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 class WalkingTaskSaveRequest extends FormRequest
 {
-    public const REQUIRED_100 = 'required|max:100';
     public const INTEGER = 'integer';
 
     public function rules(): array
@@ -14,7 +14,7 @@ class WalkingTaskSaveRequest extends FormRequest
         return [
             'working_profile_id' => self::INTEGER,
             'profiles_list' => 'required|json',
-            'status' => self::REQUIRED_100,
+            'status' =>  ['required', new TaskStatus()],
             'lower_delay_limit' => self::INTEGER,
             'upper_delay_limit' => self::INTEGER,
             'started_at' => "date",
