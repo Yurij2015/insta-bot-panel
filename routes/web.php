@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\InstProfileFollowersController;
 use App\Http\Controllers\Api\InstProfileInfoController;
+use App\Http\Controllers\Desktop\IgTasks\FollowingController;
+use App\Http\Controllers\Desktop\IgTasks\WalkingController;
 use App\Http\Controllers\GetFollowersTaskController;
 use App\Http\Controllers\GetFullIgUsersDataTaskController;
 use App\Http\Controllers\GetProfilesDataFromListController;
@@ -14,8 +16,7 @@ use App\Http\Controllers\OpenInBrowserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileListController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Resources\ProfileCollection;
-use App\Models\Profile;
+use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,10 +91,13 @@ Route::middleware('auth')->group(function () {
         Route::get('ig-users-search-and-filter', 'index')->name('ig-users-search-and-filter');
         Route::post('ig-saved-users-search-and-filter', 'search')->name('ig-saved-users-search-and-filter');
     });
-});
+    Route::controller(UserSettingsController::class)->group(function () {
+        Route::get('user-settings', 'index')->name('user-settings');
+        Route::get('generate-token', 'generateToken')->name('generate-token');
+    });
+    Route::resource('walking-tasks', WalkingController::class);
+    Route::resource('following-tasks', FollowingController::class);
 
-Route::get('/api/profiles', static function () {
-    return new ProfileCollection(Profile::with('proxy')->get());
 });
 
 Auth::routes();
