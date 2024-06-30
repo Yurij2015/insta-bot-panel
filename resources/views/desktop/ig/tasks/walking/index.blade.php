@@ -41,7 +41,7 @@
                         <td>{{ $task->profile->username }}</td>
                         <td>
                             @foreach(json_decode($task->profiles_list) as $profile)
-                                <span class="badge badge-info">{{ $profile }}</span>
+                                <span class="badge badge-primary">{{ $profile }}</span>
                             @endforeach
                         </td>
                         <td>{{ $task->status }}</td>
@@ -50,18 +50,20 @@
                         <td>{{ $task->started_at }}</td>
                         <td>{{ $task->completed_at }}</td>
                         <td style="width: 100px">
-                            <a href="{{ route('walking-tasks.edit', $task->id) }}"
-                               class="btn btn-primary btn-flat btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
-                                  class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-flat btn-sm" type="submit">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            @if($task->status === 'pending')
+                                <a href="{{ route('walking-tasks.edit', $task->id) }}"
+                                   class="btn btn-primary btn-flat btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{{ route('walking-tasks.destroy', $task->id) }}"
+                                      class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger btn-flat btn-sm" type="submit">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @endif
+                                </form>
                         </td>
                     </tr>
                 @endforeach
@@ -70,6 +72,23 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script>
+        window.onload = function () {
+            let documentHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+
+            let elements = document.getElementsByClassName('elevation-4');
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.height = documentHeight + 'px';
+            }
+        }
+    </script>
+@stop
 <style>
     .white-space-nowrap {
         white-space: nowrap;

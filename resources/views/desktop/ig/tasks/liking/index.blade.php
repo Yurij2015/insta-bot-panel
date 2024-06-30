@@ -5,19 +5,19 @@
 @section('content_header')
     <div class="row">
         <div class="col-md-6">
-            <h1>Following Tasks</h1>
+            <h1>Liking Tasks</h1>
         </div>
         <div class="col-md-6">
-            <a class="btn btn-info btn-flat float-right btn-sm" href="{{ route('following-tasks.create') }}">Add
+            <a class="btn btn-danger btn-flat float-right btn-sm" href="{{ route('liking-tasks.create') }}">Add
                 task</a>
         </div>
 
     </div>
 @stop
 @section('content')
-    <div class="card card-info">
+    <div class="card card-red">
         <div class="card-header">
-            <h3 class="card-title">Walking Tasks</h3>
+            <h3 class="card-title">Liking Tasks</h3>
         </div>
         <div class="card-body">
             <table class="table table-bordered  table-striped table-responsive">
@@ -52,13 +52,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($following_tasks as $task)
+                @foreach($liking_tasks as $task)
                     <tr>
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->profile->username }}</td>
                         <td>
                             @foreach(json_decode($task->profiles_list, false, 512, JSON_THROW_ON_ERROR) as $profile)
-                                <span class="badge badge-info">{{ $profile }}</span>
+                                <span class="badge badge-danger">{{ $profile }}</span>
                             @endforeach
                         </td>
                         <td>{{ $task->status }}</td>
@@ -107,7 +107,6 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
     <script>
         window.onload = function () {
             let documentHeight = Math.max(
