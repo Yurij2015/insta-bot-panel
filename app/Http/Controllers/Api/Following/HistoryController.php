@@ -13,10 +13,10 @@ class HistoryController
     public function followingTasksHistory(FollowingTaskHistorySaveRequest $request): JsonResponse
     {
         try {
-            $countOfWalkingTaskProfiles = count(json_decode(FollowingTask::find($request->get('following_task_id'))->profiles_list));
+            $countOfFollowingTaskProfiles = count(json_decode(FollowingTask::find($request->get('following_task_id'))->profiles_list));
             $countOfTaskInHistory = FollowingTaskHistory::where('following_task_id', $request->get('following_task_id'))->count();
             FollowingTaskHistory::create($request->validated());
-            if (($countOfTaskInHistory + 1) >= $countOfWalkingTaskProfiles) {
+            if (($countOfTaskInHistory + 1) >= $countOfFollowingTaskProfiles) {
                 FollowingTask::where('id', $request->get('following_task_id'))->update(['status' => 'completed']);
             } else {
                 FollowingTask::where('id', $request->get('following_task_id'))->update(['status' => 'running']);

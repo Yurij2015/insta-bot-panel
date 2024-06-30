@@ -41,7 +41,7 @@
                         <td>{{ $task->profile->username }}</td>
                         <td>
                             @foreach(json_decode($task->profiles_list) as $profile)
-                                <span class="badge badge-info">{{ $profile }}</span>
+                                <span class="badge badge-primary">{{ $profile }}</span>
                             @endforeach
                         </td>
                         <td>{{ $task->status }}</td>
@@ -72,6 +72,23 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script>
+        window.onload = function () {
+            let documentHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+
+            let elements = document.getElementsByClassName('elevation-4');
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.height = documentHeight + 'px';
+            }
+        }
+    </script>
+@stop
 <style>
     .white-space-nowrap {
         white-space: nowrap;

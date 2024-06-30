@@ -387,7 +387,7 @@ return [
             'text'       => 'Liking',
             'icon_color' => 'red',
             'icon'    => 'fas fa-fw fa-heart',
-            'url'        => '#',
+            'url'        => 'liking-tasks',
         ],
         [
             'text'       => 'Commenting',
