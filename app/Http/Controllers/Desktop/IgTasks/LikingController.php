@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Desktop\IgTasks;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LikingTaskSaveRequest;
 use App\Models\Desktop\LikingTask;
+use App\Models\Desktop\LikingTaskHistory;
 use App\Models\Profile;
 use App\Models\ProfileFollowersWebProfileInfo;
 use Illuminate\Http\Request;
@@ -43,7 +44,9 @@ class LikingController extends Controller
         $professionalProfiles = (bool)$request->query('professional_profiles');
         $privateProfiles = (bool)$request->query('private_profiles');
         $count = (int)$request->query('count_of_profiles', 10);
-        $profiles = ProfileFollowersWebProfileInfo::inRandomOrder();
+        $alreadyHandledProfiles = LikingTaskHistory::query()->distinct('handled_profile_login')->pluck('handled_profile_login');
+        $profiles = ProfileFollowersWebProfileInfo::inRandomOrder()->whereNotIn('username', $alreadyHandledProfiles);
+
         if ($noCyrillic) {
             $profiles->where('biography', 'NOT REGEXP', '[\x{0400}-\x{04FF}]');
         }
@@ -59,7 +62,6 @@ class LikingController extends Controller
         $profiles = $profiles->limit($count)->pluck('username');
 
         $working_profiles = Profile::where('status', 'active_web')->get();
-
 
         return view('desktop.ig.tasks.liking.create', compact('profiles', 'working_profiles'));
     }

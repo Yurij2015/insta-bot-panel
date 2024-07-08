@@ -24,6 +24,14 @@ services:
         depends_on:
             - mysql
         container_name: instbot_panel
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.5'
+                    memory: '1024M'
+                reservations:
+                    cpus: '0.1'
+                    memory: '512M'
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -49,6 +57,14 @@ services:
             retries: 3
             timeout: 5s
         container_name: instbot_mysql
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.5'
+                    memory: '1024M'
+                reservations:
+                    cpus: '0.1'
+                    memory: '512M'
 networks:
     sail:
         driver: bridge
