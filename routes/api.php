@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/profiles', static function () {
     return new ProfileCollection(Profile::with('proxy')->get());
-});
+})->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('walker-tasks', [WalkerTasksController::class, 'walkerTasks'])->name('walker-tasks');
