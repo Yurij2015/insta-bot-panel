@@ -31,7 +31,7 @@
     $config['paging'] = false;
     $config['searching'] = false;
     $config['info'] = false;
-    $heads = ['#', 'Avatar', 'UserName', 'Password', 'PhoneNumber', 'Token', 'IsRegistered', 'Status' , 'Actions'];
+    $heads = ['#', 'id ', 'Avatar', 'UserName', 'Password', 'PhoneNumber', 'Token', 'IsRegistered', 'Status' , 'Actions'];
 @endphp
 @section('content')
     <div class="row">
@@ -43,6 +43,7 @@
                         @foreach($profiles->items() as $row)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{$row->id}}</td>
                                 <td>
                                     <img src="{{ asset("uploads/profiles/images/$row->username" . ".jpg") }}" alt="{{ $row->username }}"
                                          width="100px">

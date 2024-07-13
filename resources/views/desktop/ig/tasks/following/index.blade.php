@@ -15,6 +15,13 @@
     </div>
 @stop
 @section('content')
+    @php
+        $colors = [
+            '#90EE90', '#98FB98', '#8FBC8F', '#00FF7F', '#7FFF00', '#7CFC00', '#ADFF2F', '#32CD32', '#9ACD32', '#00FA9A',
+             '#66CDAA', '#7FFFD4', '#20B2AA', '#3CB371', '#2E8B57', '#8FBC8B', '#90EE90', '#98FB98', '#00FF7F', '#7FFF00'
+             ];
+        $colorIndex = 0;
+    @endphp
     <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">Walking Tasks</h3>
@@ -56,9 +63,13 @@
                     <tr>
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->profile->username }}</td>
-                        <td>
+                        <td style="display: flex; flex-wrap: wrap; width: 400px; gap: 1px">
                             @foreach(json_decode($task->profiles_list, false, 512, JSON_THROW_ON_ERROR) as $profile)
-                                <span class="badge badge-info">{{ $profile }}</span>
+                                <div
+                                    style="background-color: {{ $colors[$colorIndex % count($colors)] }}; flex: 1; padding: 1px 3px; text-align: center; font-weight: 600">
+                                    {{ $profile }}
+                                </div>
+                                @php $colorIndex++; @endphp
                             @endforeach
                         </td>
                         <td>{{ $task->status }}</td>
