@@ -44,9 +44,16 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{$row->id}}</td>
+                                @php
+                                    $avatarPath = public_path("/uploads/profiles/images/$row->username" . ".jpg");
+                                    if(file_exists($avatarPath)){
+                                        $avatar = asset("uploads/profiles/images/$row->username" . ".jpg");
+                                    }else{
+                                        $avatar = asset("uploads/profiles/no_avatar.svg");
+                                    }
+                                @endphp
                                 <td>
-                                    <img src="{{ asset("uploads/profiles/images/$row->username" . ".jpg") }}" alt="{{ $row->username }}"
-                                         width="100px">
+                                    <img src="{{$avatar}}" alt="{{ $row->username }}" width="100px">
                                 </td>
                                 <td>{{ $row->username }}</td>
                                 <td>{!! $row->password !!}</td>
