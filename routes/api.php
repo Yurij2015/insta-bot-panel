@@ -26,11 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/profiles', static function () {
-    return new ProfileCollection(Profile::with('proxy')->get());
-})->middleware('auth:sanctum');
-
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('profiles', static fn () => ProfileCollection::make(Profile::with('proxy')->get()));
+    Route::get('not-reg-profiles', static fn() => ProfileCollection::make(Profile::where('is_registered', '=', false)
+        ->where('status', '!=', 'suspended')
+        ->with('proxy')->get())
+    );
+
     Route::get('walker-tasks', [WalkerTasksController::class, 'walkerTasks'])->name('walker-tasks');
     Route::post('walker-tasks-history', [WalkerHistoryController::class, 'walkerTasksHistory'])->name('walker-tasks-history');
 
