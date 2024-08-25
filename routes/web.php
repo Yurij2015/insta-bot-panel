@@ -14,11 +14,14 @@ use App\Http\Controllers\IgSavedUsersSearchAndFilterController;
 use App\Http\Controllers\InstSearchController;
 use App\Http\Controllers\InstSearchResultController;
 use App\Http\Controllers\OpenInBrowserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileListController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +102,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('walking-tasks', WalkingController::class);
     Route::resource('following-tasks', FollowingController::class);
     Route::resource('liking-tasks', LikingController::class);
+
+    # Products to save in db and send to Stripe
+    Route::resource('products', ProductController::class);
+
+    Route::controller(SubscriptionController::class)->group(function () {
+        Route::get('/subscription-checkout', 'checkout')->name('subscription-checkout');
+        Route::get('/subscription-purchase', 'purchase')->name('subscription-purchase');
+    });
+
+    Route::view('/checkout/success', 'checkout.success')->name('checkout-success');
+    Route::view('/checkout/cancel', 'checkout.cancel')->name('checkout-cancel');
 });
 
 Auth::routes();
