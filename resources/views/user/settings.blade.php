@@ -30,12 +30,18 @@
             </p>
             <div class="row" style="line-height: 40px">
                 <div class="col-md-2">
-                    <a href="{{ route("generate-token") }}" class="btn btn-primary btn-flat" style="width: 100%"><i class="fas fa-key"></i>
+                    <a href="{{ route("generate-token") }}" class="btn btn-primary btn-flat" style="width: 100%"><i
+                            class="fas fa-key"></i>
                         Generate token</a>
                 </div>
                 <div class="col-md-10">
                     <p class="text-danger font-weight-bold">{{ $token ?? 'no token generated yet' }}</p>
                 </div>
             </div>
+            <hr>
+            @if(request()->user()->id === 1)
+                <a class="btn btn-primary btn-flat" href="{{ route('products.index') }}">Products</a>
+            @endif
+            <a class="btn btn-primary btn-flat" href="{{ route('subscription-purchase') }}">Subscription packages</a>
         </div>
 @endsection
