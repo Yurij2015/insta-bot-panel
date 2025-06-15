@@ -5,7 +5,7 @@
     "port": "2226",
     "username": "instpanel",
     "beforeHooks": "",
-    "afterHooks": "php /home/instpanel/htdocs/inst-panel.digispace.pro/current/artisan migrate",
+    "afterHooks": "/usr/bin/php8.2 /home/instpanel/htdocs/inst-panel.digispace.pro/current/artisan migrate",
     "path": "/home/instpanel/htdocs/inst-panel.digispace.pro"
   }
 ]
