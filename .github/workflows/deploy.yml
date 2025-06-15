@@ -61,7 +61,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_2 }}
           port: ${{ matrix.server.port }}
           source: ${{ github.sha }}.tar.gz
           target: ${{ matrix.server.path }}/artifacts
@@ -72,7 +72,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY _2}}
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA
           script: |
@@ -104,7 +104,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_2 }}
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,STORAGE_PATH,BASE_PATH
           script: |
@@ -144,7 +144,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_2 }}
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,STORAGE_PATH,BASE_PATH,ENV_PATH,LARAVEL_ENV
           script: |
@@ -182,7 +182,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_2 }}
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,STORAGE_PATH,BASE_PATH
           script: |
@@ -211,7 +211,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_2 }}
           port: ${{ matrix.server.port }}
           envs: RELEASES_PATH
           script: |
