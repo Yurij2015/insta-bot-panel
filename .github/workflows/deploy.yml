@@ -72,7 +72,7 @@ jobs:
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
-          key: ${{ secrets.SSH_KEY _2}}
+          key: ${{ secrets.SSH_KEY_2}}
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA
           script: |
